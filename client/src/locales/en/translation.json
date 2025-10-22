@@ -1,0 +1,187 @@
+{
+  "welcome": "Welcome to InsurAI",
+  "tagline": "Smart Insurance Solutions Powered by Artificial Intelligence.",
+  "getStarted": "Get Started",
+   "features": {
+    "ourStoryTitle": "Our Story",
+    "ourStoryDesc": "FarmXpress was born out of a mission to bridge the gap between hardworking farmers and customers seeking fresh, affordable produce. We believe in empowering farmers by giving them a platform to sell directly, ensuring they get the rewards they deserve while customers enjoy the best quality at the best price.",
+    "whyChoose": "Why Choose InsurAI?",
+    "directSellingTitle": "Direct Selling",
+    "directSellingDesc": "Farmers sell directly to customers, eliminating middlemen.",
+    "freshProduceTitle": "Fresh Produce",
+    "freshProduceDesc": "Get farm-fresh fruits and vegetables delivered to your door.",
+    "fairPricingTitle": "Fair Pricing",
+    "fairPricingDesc": "Fair prices for farmers, affordable rates for customers.",
+    "realTimeUpdatesTitle": "Real-Time Updates",
+    "realTimeUpdatesDesc": "Live updates on market prices and product availability.",
+    "easyPaymentsTitle": "Easy Payments",
+    "easyPaymentsDesc": "Seamless and secure digital payment options.",
+    "farmerSupportTitle": "Farmer Support",
+    "farmerSupportDesc": "Training and support programs to empower farmers.",
+    "userReviews": "What Our Users Say"
+  },
+  "reviews": {
+    "aarav": "FarmXpress made it possible for me to sell my harvest without worrying about middlemen. Profits doubled!",
+    "priya": "I love the freshness of the vegetables. It feels good to directly support farmers.",
+    "rohan": "Seamless app experience! Buying directly from farmers has never been easier.",
+    "meera": "As a farmer, FarmXpress helped me reach a larger customer base without any hassle.",
+    "vikram": "Fair prices and fast delivery. I now buy everything for my kitchen via FarmXpress.",
+    "sneha": "FarmXpress has been a game-changer for farmers like me who want independence."
+  },
+
+   "footer": {
+    "description": "Bridging farmers and customers directly — fresh produce, fair prices, and no middlemen.",
+    "quickLinks": "Quick Links",
+    "home": "Home",
+    "buyProduce": "Buy Fresh Produce",
+    "sellCrops": "Sell Your Crops",
+    "howItWorks": "How It Works",
+    "resources": "Resources",
+    "farmerSupport": "Farmer Support",
+    "pricingGuide": "Pricing Guide",
+    "customerFaqs": "Customer FAQs",
+    "latestUpdates": "Latest Updates",
+    "contact": "Contact Us",
+    "rightsReserved": "All rights reserved."
+  },
+
+  "adminNavbar": {
+    "addProduct": "Add Product",
+    "myOrders": "My Orders",
+    "feedback": "Feedback",
+    "myProfile": "My Profile",
+    "logout": "Logout"
+  },
+  "language": {
+    "english": "English",
+    "telugu": "Telugu"
+  },
+
+  "productsList": "Products List",
+  "addProduct": "Add Product",
+  "edit": "Edit",
+  "delete": "Delete",
+  "generateQr": "Generate QR",
+  "name": "Name",
+  "date": "Date",
+  "price": "Price",
+  "description": "Description",
+  "image": "Image",
+  "add": "Add",
+  "update": "Update",
+  "close": "Close",
+  "productQr": "Product QR Code",
+  "ordersList": "Orders List",
+  "username": "Username",
+  "quantity": "Quantity",
+  "adminMessage": "YOU ARE AN ADMIN",
+  "Explore": "Explore",
+  "WishList": "WishList",
+  "My Cart": "My Cart",
+  "My Orders": "My Orders",
+  "Payments": "Payments",
+  "AboutUs": "About Us",
+  "Contact Us": "Contact Us",
+  "SignUp": "Sign Up",
+  "Login": "Login",
+  "Logout": "Logout",
+  "Profile": "Profile",
+  "View Profile": "View Profile",
+
+  "about": {
+    "title": "About FarmXpress",
+    "intro": "Welcome to InsurAI! We’re dedicated to revolutionizing the way consumers buy fresh produce by connecting them directly to hardworking farmers.",
+    "story": {
+      "title": "Our Story",
+      "text": "Born out of a desire to bridge the gap between farmers and customers, FarmXpress offers a direct platform for farmers to sell their fresh produce, ensuring fair pricing, quality, and sustainability."
+    },
+    "mission": {
+      "title": "Our Mission",
+      "text": "At FarmXpress, our mission is to empower farmers by providing them with a direct-to-consumer platform that ensures fair trade and sustainable farming practices."
+    },
+    "whyChoose": {
+      "title": "Why Choose FarmXpress?",
+      "point1": "Direct Selling: No middlemen—farmers get better prices.",
+      "point2": "Fresh Produce: Farm-to-table delivery of fruits and vegetables.",
+      "point3": "Real-Time Updates: Stay informed with live market prices and product availability.",
+      "point4": "Fair Pricing: Competitive prices that benefit both farmers and customers.",
+      "point5": "Farmer Support: Comprehensive training programs to help farmers grow their businesses."
+    },
+    "team": {
+      "title": "Meet Our Team",
+      "founder": "Founder",
+      "coFounder": "Co-Founder",
+      "advisor": "Advisor",
+      "jahnavi": {
+        "qual": "MBA in Business Administration",
+        "desc": "Jahnavi is the visionary behind FarmXpress, aiming to connect farmers and consumers through a seamless digital platform."
+      },
+      "sai": {
+        "qual": "B.Tech in Computer Science",
+        "desc": "Sai Sree is responsible for overseeing the platform's technology and ensuring a smooth user experience."
+      },
+       "ramya": {
+        "qual": "MSc in Agricultural Economics",
+        "desc": "Ramya brings expertise in agricultural economics, focusing on fair pricing and market strategies for farmers."
+      },
+      "muralimohan": {
+        "qual": "PhD in Agricultural Science",
+        "desc": "Dr.Muralimohan provides valuable insights and guidance on sustainable farming practices and agricultural trends."
+      }
+    },
+    "news": {
+      "title": "Latest News",
+      "n1": {
+        "title": "FarmXpress Expands to New Regions",
+        "desc": "FarmXpress is excited to announce its expansion into new regions, bringing fresh produce to more customers."
+      },
+      "n2": {
+        "title": "Farmers Join FarmXpress Platform for Direct Sales",
+        "desc": "We’ve onboarded a new set of farmers, who are now able to sell their produce directly to customers through our platform."
+      },
+      "n3": {
+        "title": "Sustainable Farming Practices for a Greener Future",
+        "desc": "Discover how FarmXpress is supporting sustainable farming practices to ensure a greener future for agriculture."
+      },
+      "readMore": "Read More"
+    }
+  },
+  "contact": {
+    "heroTitle": "Welcome to InsurAI Customer Service",
+    "heroDescription": "We’re here to assist you. Sign in or explore solutions below!",
+    "heroAltText": "Contact Us Image",
+    "helpTitle": "How can we help you?",
+    "contactTitle": "Contact Us",
+    "namePlaceholder": "Your Name",
+    "emailPlaceholder": "Your Email",
+    "messagePlaceholder": "Your Message",
+    "sendingMessage": "Sending...",
+    "sendMessage": "Send Message",
+    "successMessage": "✅ Your message has been sent successfully!",
+    "errorMessage": "❌ Error",
+    "networkError": "❌ Network error. Please try again.",
+    "defaultError": "Failed to send message"
+  },
+  "helpTopics": {
+    "deliveryOrderReturn": "Delivery, Order, or Return",
+    "deliveryOrderReturnDescription": "Easily track and manage your deliveries and returns.",
+    "primeServices": "Prime Services",
+    "primeServicesDescription": "Get help with your FarmXpress Prime membership.",
+    "devicesTechnology": "Devices & Technology",
+    "devicesTechnologyDescription": "Support for FarmXpress devices and applications.",
+    "mediaEntertainment": "Media & Entertainment",
+    "mediaEntertainmentDescription": "Get help for videos, eBooks, games, and more.",
+    "paymentsGiftCards": "Payments & Gift Cards",
+    "paymentsGiftCardsDescription": "Resolve issues related to payments, charges, and gift cards.",
+    "accountPrivacy": "Account & Privacy",
+    "accountPrivacyDescription": "Update your address, security, and privacy settings.",
+    "membershipsSubscriptions": "Memberships & Subscriptions",
+    "membershipsSubscriptionsDescription": "Manage all your memberships in one place.",
+    "accessibilitySupport": "Accessibility Support",
+    "accessibilitySupportDescription": "Learn about our accessibility services and tools.",
+    "reportSuspiciousActivity": "Report Suspicious Activity",
+    "reportSuspiciousActivityDescription": "Report unusual activity and protect your security.",
+    "loginPasswordHelp": "Login & Password Help",
+    "loginPasswordHelpDescription": "Reset your password or update your login credentials."
+  }
+}
