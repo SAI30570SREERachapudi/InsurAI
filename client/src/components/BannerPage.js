@@ -8,8 +8,6 @@ function BannerPage() {
       <div>
       
         <HomePage />  {/* Hero Section */}
-        <Features />  {/* Features Section */}
-        <Footer />  {/* Footer Section */}
       </div>
     );
   }

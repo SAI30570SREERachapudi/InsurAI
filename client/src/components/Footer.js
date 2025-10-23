@@ -8,9 +8,8 @@ const Footer = () => {
 
   return (
     <Box sx={{ bgcolor: '#2E8B57', color: 'white', pt: 6, pb: 2 }} component="footer">
-      <Container maxWidth="lg">
+      {/* <Container maxWidth="lg">
         <Grid container spacing={4}>
-          {/* Logo and Description */}
           <Grid item xs={12} md={3}>
             <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
               Farm<span style={{ color: 'red' }}>X<span style={{ color: 'white' }}></span>press</span>
@@ -19,8 +18,6 @@ const Footer = () => {
               {t('footer.description')}
             </Typography>
           </Grid>
-
-          {/* Quick Links */}
           <Grid item xs={12} md={3}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
               {t('footer.quickLinks')}
@@ -30,8 +27,6 @@ const Footer = () => {
             <Link href="#" color="inherit" underline="hover" display="block" mb={1}>{t('footer.sellCrops')}</Link>
             <Link href="#" color="inherit" underline="hover" display="block" mb={1}>{t('footer.howItWorks')}</Link>
           </Grid>
-
-          {/* Resources */}
           <Grid item xs={12} md={3}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
               {t('footer.resources')}
@@ -41,8 +36,6 @@ const Footer = () => {
             <Link href="#" color="inherit" underline="hover" display="block" mb={1}>{t('footer.customerFaqs')}</Link>
             <Link href="#" color="inherit" underline="hover" display="block" mb={1}>{t('footer.latestUpdates')}</Link>
           </Grid>
-
-          {/* Contact */}
           <Grid item xs={12} md={3}>
             <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 2 }}>
               {t('footer.contact')}
@@ -58,15 +51,11 @@ const Footer = () => {
             </Typography>
           </Grid>
         </Grid>
-
-        {/* Divider */}
         <Divider sx={{ my: 4, bgcolor: 'grey.700' }} />
-
-        {/* Bottom Text */}
         <Typography variant="body2" color="grey.500" align="center">
           © 2025 InsurAI. {t('footer.rightsReserved')}
         </Typography>
-      </Container>
+      </Container> */}
     </Box>
   );
 };
