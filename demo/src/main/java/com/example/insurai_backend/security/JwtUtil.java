@@ -71,10 +71,12 @@ import java.util.Date;
 
 @Component
 public class JwtUtil {
+
     @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expirationMs}")
+    // expiration in milliseconds
+    @Value("${jwt.expirationMs:3600000}")
     private long expirationMs;
 
     private Key getKey() {
@@ -82,11 +84,13 @@ public class JwtUtil {
     }
 
     public String generateToken(String subject, String role) {
+        Date now = new Date();
+        Date exp = new Date(now.getTime() + expirationMs);
         return Jwts.builder()
                 .setSubject(subject)
                 .claim("role", role)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
+                .setIssuedAt(now)
+                .setExpiration(exp)
                 .signWith(getKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

@@ -1,103 +1,125 @@
-//package com.example.insurai_backend.service;
-//
-//import com.example.insurai_backend.model.User;
-//import com.example.insurai_backend.repository.UserRepository;
-//import com.example.insurai_backend.security.JwtUtil;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.stereotype.Service;
-//
-//import java.util.List;
-//import java.util.Optional;
-//
-//@Service
-//public class AuthService {
-//
-//    @Autowired private UserRepository userRepository;
-//    @Autowired private PasswordEncoder passwordEncoder;
-//    @Autowired private JwtUtil jwtUtil;
-//
-//    public void register(User user) {
-//        Optional<User> existing = userRepository.findByEmail(user.getEmail());
-//        if (existing.isPresent()) {
-//            throw new RuntimeException("Email already in use");
-//        }
-//        // default role
-//        if (user.getRole() == null) user.setRole("ROLE_USER");
-//        user.setPassword(passwordEncoder.encode(user.getPassword()));
-//        userRepository.save(user);
-//    }
-//
-//    public String login(String email, String password) {
-//        User u = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("Invalid credentials"));
-//        if (!passwordEncoder.matches(password, u.getPassword())) throw new RuntimeException("Invalid credentials");
-//        return jwtUtil.generateToken(email, u.getRole());
-//    }
-//
-//    public User findByEmail(String email) {
-//        return userRepository.findByEmail(email).orElse(null);
-//    }
-//    public List<User> getAllUsers() {
-//		return userRepository.findAll();
-//	}
-//}
-//
-
-
 package com.example.insurai_backend.service;
 
-import com.example.insurai_backend.model.*;
+import com.example.insurai_backend.model.Role;
+import com.example.insurai_backend.model.Status;
+import com.example.insurai_backend.model.User;
 import com.example.insurai_backend.repository.UserRepository;
 import com.example.insurai_backend.security.JwtUtil;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AuthService {
-    @Autowired private UserRepository userRepo;
-    @Autowired private PasswordEncoder passwordEncoder;
-    @Autowired private JwtUtil jwtUtil;
 
+    private final UserRepository userRepo;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtUtil jwtUtil;
+    private final JavaMailSender mailSender;
+
+    public AuthService(UserRepository userRepo,
+                       PasswordEncoder passwordEncoder,
+                       JwtUtil jwtUtil,
+                       JavaMailSender mailSender) {
+        this.userRepo = userRepo;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtUtil = jwtUtil;
+        this.mailSender = mailSender;
+    }
+
+    // ------------------ REGISTER USER ------------------
     public void registerUser(User user) {
+        user.setRole(Role.ROLE_CUSTOMER);
+        user.setStatus(Status.APPROVED);
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        if (user.getRole()==null) user.setRole(Role.ROLE_CUSTOMER);
         userRepo.save(user);
     }
 
-    public String login(String email, String password) {
-        Optional<User> opt = userRepo.findByEmail(email);
-        if (opt.isEmpty()) throw new RuntimeException("Invalid credentials");
-        User user = opt.get();
-        if (!passwordEncoder.matches(password, user.getPassword())) throw new RuntimeException("Invalid credentials");
-        return jwtUtil.generateToken(user.getEmail(), user.getRole().name());
+    // ------------------ REGISTER AGENT ------------------
+    public void registerAgent(User user, String documentPath) {
+        user.setRole(Role.ROLE_AGENT);
+        user.setStatus(Status.PENDING);
+        user.setDocumentPath(documentPath);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        userRepo.save(user);
     }
 
+    // ------------------ LOGIN ------------------
+    public String login(String email, String password) {
+        User u = userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Invalid credentials"));
+
+        if (!passwordEncoder.matches(password, u.getPassword()))
+            throw new RuntimeException("Invalid credentials");
+
+        if (u.getRole() == Role.ROLE_AGENT && u.getStatus() != Status.APPROVED)
+            throw new RuntimeException("Agent is not approved yet");
+
+        return jwtUtil.generateToken(u.getEmail(), u.getRole().name());
+    }
+
+    // ------------------ FIND BY EMAIL ------------------
     public User findByEmail(String email) {
         return userRepo.findByEmail(email).orElse(null);
     }
 
-    public List<User> getAllUsers() { return userRepo.findAll(); }
-
-    // agent registration: set document path and verified=false
-    public void registerAgent(User user, String documentPath) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole(Role.ROLE_AGENT);
-        user.setDocumentPath(documentPath);
-        user.setVerified(false);
-        userRepo.save(user);
+    // ------------------ GET ALL USERS ------------------
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
     }
 
-    public List<User> findPendingAgents() {
+    // ------------------ PENDING AGENTS ------------------
+    public List<User> getPendingAgents() {
         return userRepo.findByRoleAndVerifiedFalse(Role.ROLE_AGENT);
     }
 
-    public void verifyAgent(Long id) {
-        User u = userRepo.findById(id).orElseThrow(() -> new RuntimeException("Agent not found"));
+    // ------------------ APPROVE AGENT ------------------
+    @Transactional
+    public void approveAgent(Long id) {
+        User u = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (u.getRole() != Role.ROLE_AGENT)
+            throw new RuntimeException("Cannot approve non-agent users");
+
+        u.setStatus(Status.APPROVED);
         u.setVerified(true);
         userRepo.save(u);
+
+        sendEmail(u.getEmail(), "Agent Approval - InsurAI",
+                "Dear " + u.getName() + ",\n\nYour agent registration has been APPROVED.\n\nRegards,\nInsurAI Team");
+    }
+
+    // ------------------ REJECT AGENT ------------------
+    @Transactional
+    public void rejectAgent(Long id) {
+        User u = userRepo.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        if (u.getRole() != Role.ROLE_AGENT)
+            throw new RuntimeException("Cannot reject non-agent users");
+
+        u.setStatus(Status.REJECTED);
+        userRepo.save(u);
+
+        sendEmail(u.getEmail(), "Agent Registration - InsurAI",
+                "Dear " + u.getName() + ",\n\nYour agent registration has been REJECTED.\n\nRegards,\nInsurAI Team");
+    }
+
+    // ------------------ SEND EMAIL ------------------
+    private void sendEmail(String to, String subject, String text) {
+        try {
+            SimpleMailMessage msg = new SimpleMailMessage();
+            msg.setTo(to);
+            msg.setSubject(subject);
+            msg.setText(text);
+            mailSender.send(msg);
+        } catch (Exception e) {
+            System.err.println("Failed to send email: " + e.getMessage());
+        }
     }
 }

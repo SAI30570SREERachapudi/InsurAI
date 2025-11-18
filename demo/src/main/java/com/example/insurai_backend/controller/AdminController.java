@@ -6,29 +6,42 @@
 package com.example.insurai_backend.controller;
 
 import com.example.insurai_backend.model.User;
+import com.example.insurai_backend.service.AgentService;
 import com.example.insurai_backend.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/admin")
-@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+@CrossOrigin(origins = "${frontend.origin}", allowCredentials = "true")
 public class AdminController {
 
+    @Autowired private AgentService agentService;
     @Autowired private AuthService authService;
 
     @GetMapping("/pending-agents")
-    public List<User> pendingAgents() {
-        return authService.findPendingAgents();
+    public List<User> getPendingAgents() {
+        return agentService.getPendingAgents();
     }
 
-    @PutMapping("/verify-agent/{id}")
-    public ResponseEntity<?> verifyAgent(@PathVariable Long id) {
-        authService.verifyAgent(id);
-        return ResponseEntity.ok().body(Map.of("message","Agent verified"));
+    @GetMapping("/users")
+    public List<User> getAllUsers() {
+        return authService.getAllUsers();
+    }
+
+    @PutMapping("/approve/{id}")
+    public ResponseEntity<?> approve(@PathVariable Long id) {
+        agentService.approveAgent(id);
+        return ResponseEntity.ok(Map.of("message","Agent approved"));
+    }
+
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<?> reject(@PathVariable Long id) {
+        agentService.rejectAgent(id);
+        return ResponseEntity.ok(Map.of("message","Agent rejected"));
     }
 }
