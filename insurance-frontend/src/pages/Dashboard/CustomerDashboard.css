@@ -1,0 +1,102 @@
+.customer-dashboard {
+  padding: 40px;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f3f4f6, #e0f2fe);
+  min-height: 100vh;
+}
+
+.customer-title {
+  font-size: 28px;
+  text-align: center;
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+.customer-subtitle {
+  text-align: center;
+  color: #334155;
+  font-size: 16px;
+  margin-bottom: 30px;
+}
+
+.policy-section {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.section-heading {
+  font-size: 20px;
+  color: #2563eb;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #2563eb;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.no-policies {
+  text-align: center;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.policy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.policy-table th,
+.policy-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.policy-table th {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+.policy-table tr:nth-child(even) {
+  background-color: #f9fafb;
+}
+
+.status {
+  font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+.status.active {
+  color: #16a34a;
+}
+
+.status.expired {
+  color: #dc2626;
+}
+
+.buy-policy-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.buy-policy-btn {
+  background: #2563eb;
+  color: #ffffff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.buy-policy-btn:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}

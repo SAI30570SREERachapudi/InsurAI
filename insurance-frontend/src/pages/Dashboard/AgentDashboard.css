@@ -1,0 +1,84 @@
+.agent-dashboard {
+  padding: 40px;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #e8f5ff, #ffffff);
+  min-height: 100vh;
+}
+
+.agent-title {
+  font-size: 28px;
+  text-align: center;
+  color: #0f3460;
+  margin-bottom: 10px;
+}
+
+.agent-welcome {
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.applications-container {
+  background: #fff;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+  font-size: 20px;
+  color: #2563eb;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #2563eb;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.no-apps {
+  text-align: center;
+  color: #777;
+  font-size: 15px;
+}
+
+.applications-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+}
+
+.applications-table th,
+.applications-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+}
+
+.applications-table th {
+  background-color: #2563eb;
+  color: white;
+}
+
+.applications-table tr:nth-child(even) {
+  background-color: #f8faff;
+}
+
+.status {
+  font-weight: 600;
+  border-radius: 4px;
+  padding: 4px 8px;
+}
+
+.status.approved {
+  color: #16a34a;
+}
+
+.status.rejected {
+  color: #dc2626;
+}
+
+.status.pending {
+  color: #f59e0b;
+}

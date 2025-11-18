@@ -7,12 +7,10 @@
 //   const role = localStorage.getItem("role");
 //   const loggedIn = !!localStorage.getItem("token");
 
-//   const handleLogout = async () => {
+//   const logout = async () => {
 //     try {
 //       await axios.post("/auth/logout");
-//     } catch (e) {
-//       // ignore
-//     }
+//     } catch (e) {}
 //     localStorage.removeItem("token");
 //     localStorage.removeItem("role");
 //     navigate("/login");
@@ -22,34 +20,49 @@
 //     <nav
 //       style={{
 //         background: "#1e3a8a",
-//         color: "white",
-//         padding: "12px 20px",
+//         color: "#fff",
+//         padding: 12,
 //         display: "flex",
 //         justifyContent: "space-between",
-//         alignItems: "center",
 //       }}
 //     >
-//       <div style={{ fontWeight: 700 }}>Insurance Portal</div>
+//       <div style={{ fontWeight: 700 }}>Insurai</div>
 //       <div>
 //         {loggedIn ? (
 //           <>
-//             <Link to="/dashboard" style={{ color: "white", marginRight: 12 }}>
-//               Dashboard
-//             </Link>
-//             <Link to="/policies" style={{ color: "white", marginRight: 12 }}>
+//             <Link to="/policies" style={{ color: "#fff", marginRight: 10 }}>
 //               Policies
 //             </Link>
+//             {role === "ROLE_CUSTOMER" && (
+//               <Link
+//                 to="/dashboard/customer"
+//                 style={{ color: "#fff", marginRight: 10 }}
+//               >
+//                 Dashboard
+//               </Link>
+//             )}
+//             {role === "ROLE_AGENT" && (
+//               <Link
+//                 to="/dashboard/agent"
+//                 style={{ color: "#fff", marginRight: 10 }}
+//               >
+//                 Dashboard
+//               </Link>
+//             )}
 //             {role === "ROLE_ADMIN" && (
-//               <Link to="/admin" style={{ color: "white", marginRight: 12 }}>
+//               <Link
+//                 to="/dashboard/admin"
+//                 style={{ color: "#fff", marginRight: 10 }}
+//               >
 //                 Admin
 //               </Link>
 //             )}
 //             <button
-//               onClick={handleLogout}
+//               onClick={logout}
 //               style={{
 //                 background: "#dc2626",
-//                 color: "white",
 //                 border: "none",
+//                 color: "#fff",
 //                 padding: "6px 10px",
 //                 borderRadius: 4,
 //               }}
@@ -59,10 +72,10 @@
 //           </>
 //         ) : (
 //           <>
-//             <Link to="/login" style={{ color: "white", marginRight: 12 }}>
+//             <Link to="/login" style={{ color: "#fff", marginRight: 10 }}>
 //               Login
 //             </Link>
-//             <Link to="/register" style={{ color: "white", marginRight: 12 }}>
+//             <Link to="/register" style={{ color: "#fff", marginRight: 10 }}>
 //               Register
 //             </Link>
 //           </>
@@ -75,6 +88,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../services/axiosInstance";
+import "./navbar.css";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -84,76 +98,59 @@ export default function Navbar() {
   const logout = async () => {
     try {
       await axios.post("/auth/logout");
-    } catch (e) {}
+    } catch (e) {
+      console.error("Logout error:", e);
+    }
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     navigate("/login");
   };
 
   return (
-    <nav
-      style={{
-        background: "#1e3a8a",
-        color: "#fff",
-        padding: 12,
-        display: "flex",
-        justifyContent: "space-between",
-      }}
-    >
-      <div style={{ fontWeight: 700 }}>Insurai</div>
-      <div>
-        {loggedIn ? (
-          <>
-            <Link to="/policies" style={{ color: "#fff", marginRight: 10 }}>
-              Policies
-            </Link>
-            {role === "ROLE_CUSTOMER" && (
-              <Link
-                to="/dashboard/customer"
-                style={{ color: "#fff", marginRight: 10 }}
-              >
-                Dashboard
+    <nav className="navbar">
+      <div className="navbar-container">
+        <div className="navbar-logo">
+          Insur<span>AI</span>
+        </div>
+
+        <div className="navbar-links">
+          {loggedIn ? (
+            <>
+              <Link to="/policies" className="nav-item">
+                Policies
               </Link>
-            )}
-            {role === "ROLE_AGENT" && (
-              <Link
-                to="/dashboard/agent"
-                style={{ color: "#fff", marginRight: 10 }}
-              >
-                Dashboard
+
+              {role === "ROLE_CUSTOMER" && (
+                <Link to="/dashboard/customer" className="nav-item">
+                  Dashboard
+                </Link>
+              )}
+              {role === "ROLE_AGENT" && (
+                <Link to="/dashboard/agent" className="nav-item">
+                  Agent Panel
+                </Link>
+              )}
+              {role === "ROLE_ADMIN" && (
+                <Link to="/dashboard/admin" className="nav-item">
+                  Admin
+                </Link>
+              )}
+
+              <button onClick={logout} className="logout-btn">
+                Logout
+              </button>
+            </>
+          ) : (
+            <>
+              <Link to="/login" className="nav-item">
+                Login
               </Link>
-            )}
-            {role === "ROLE_ADMIN" && (
-              <Link
-                to="/dashboard/admin"
-                style={{ color: "#fff", marginRight: 10 }}
-              >
-                Admin
+              <Link to="/register" className="register-btn">
+                Register
               </Link>
-            )}
-            <button
-              onClick={logout}
-              style={{
-                background: "#dc2626",
-                border: "none",
-                color: "#fff",
-                padding: "6px 10px",
-                borderRadius: 4,
-              }}
-            >
-              Logout
-            </button>
-          </>
-        ) : (
-          <>
-            <Link to="/login" style={{ color: "#fff", marginRight: 10 }}>
-              Login
-            </Link>
-            <Link to="/register" style={{ color: "#fff", marginRight: 10 }}>
-              Register
-            </Link>
-          </>
-        )}
+            </>
+          )}
+        </div>
       </div>
     </nav>
   );

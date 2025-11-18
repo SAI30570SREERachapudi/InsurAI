@@ -1,0 +1,74 @@
+.admin-dashboard {
+  padding: 40px;
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #f0f4ff, #ffffff);
+  min-height: 100vh;
+}
+
+.admin-title {
+  font-size: 28px;
+  color: #2a3f8d;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.pending-title {
+  text-align: center;
+  font-size: 20px;
+  color: #555;
+  margin-bottom: 30px;
+}
+
+.no-pending {
+  text-align: center;
+  color: #888;
+  font-size: 16px;
+}
+
+.pending-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.agent-card {
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.agent-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.15);
+}
+
+.agent-info p {
+  margin: 6px 0;
+  color: #333;
+}
+
+.doc-name {
+  color: #2563eb;
+  font-weight: 500;
+}
+
+.verify-btn {
+  background-color: #16a34a;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.3s;
+}
+
+.verify-btn:hover {
+  background-color: #15803d;
+}
