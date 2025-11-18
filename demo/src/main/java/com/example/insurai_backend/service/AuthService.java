@@ -31,7 +31,6 @@ public class AuthService {
         this.mailSender = mailSender;
     }
 
-    // ------------------ REGISTER USER ------------------
     public void registerUser(User user) {
         user.setRole(Role.ROLE_CUSTOMER);
         user.setStatus(Status.APPROVED);
@@ -96,19 +95,29 @@ public class AuthService {
 
     // ------------------ REJECT AGENT ------------------
     @Transactional
-    public void rejectAgent(Long id) {
+    public void rejectAgent(Long id, String reason) {
+
         User u = userRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
         if (u.getRole() != Role.ROLE_AGENT)
             throw new RuntimeException("Cannot reject non-agent users");
 
-        u.setStatus(Status.REJECTED);
-        userRepo.save(u);
+        // Send rejection email BEFORE deleting
+        sendEmail(
+                u.getEmail(),
+                "Agent Registration Rejected - InsurAI",
+                "Dear " + u.getName() + ",\n\n" +
+                "We regret to inform you that your agent registration has been rejected.\n\n" +
+                "Reason for rejection:\n" + reason + "\n\n" +
+                "You may re-apply with correct/valid documents.\n\n" +
+                "Regards,\nInsurAI Team"
+        );
 
-        sendEmail(u.getEmail(), "Agent Registration - InsurAI",
-                "Dear " + u.getName() + ",\n\nYour agent registration has been REJECTED.\n\nRegards,\nInsurAI Team");
+        // DELETE the agent from DB
+        userRepo.delete(u);
     }
+
 
     // ------------------ SEND EMAIL ------------------
     private void sendEmail(String to, String subject, String text) {

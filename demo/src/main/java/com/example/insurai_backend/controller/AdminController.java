@@ -44,4 +44,19 @@ public class AdminController {
         agentService.rejectAgent(id);
         return ResponseEntity.ok(Map.of("message","Agent rejected"));
     }
+    @PutMapping("/reject/{id}")
+    public ResponseEntity<?> rejectAgent(
+            @PathVariable Long id,
+            @RequestBody Map<String, String> body
+    ) {
+        String reason = body.get("reason");
+
+        if (reason == null || reason.isBlank()) {
+            return ResponseEntity.badRequest().body(Map.of("message", "Rejection reason is required"));
+        }
+
+        authService.rejectAgent(id, reason);
+        return ResponseEntity.ok(Map.of("message", "Agent Rejected"));
+    }
+
 }

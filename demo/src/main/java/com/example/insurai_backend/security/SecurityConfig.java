@@ -134,34 +134,16 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
-
-                // -----------------------------
-                // PUBLIC ENDPOINTS
-                // -----------------------------
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll()  // file access
+                .requestMatchers(HttpMethod.GET, "/uploads/**").permitAll() 
                 .requestMatchers("/uploads/**").permitAll()
-
-                // -----------------------------
-                // ADMIN ACCESS
-                // -----------------------------
                 .requestMatchers("/api/admin/approve/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/api/admin/reject/**").hasAuthority("ROLE_ADMIN")
                 .requestMatchers("/api/admin/**").hasAuthority("ROLE_ADMIN")
 
-                // -----------------------------
-                // AGENT DASHBOARD
-                // -----------------------------
                 .requestMatchers("/api/dashboard/agent/**").hasAuthority("ROLE_AGENT")
 
-                // -----------------------------
-                // CUSTOMER DASHBOARD
-                // -----------------------------
                 .requestMatchers("/api/dashboard/customer/**").hasAuthority("ROLE_CUSTOMER")
-
-                // -----------------------------
-                // ALL OTHER REQUESTS REQUIRE LOGIN
-                // -----------------------------
                 .anyRequest().authenticated()
             );
 
