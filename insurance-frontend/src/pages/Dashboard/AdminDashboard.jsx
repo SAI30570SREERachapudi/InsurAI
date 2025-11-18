@@ -45,7 +45,7 @@ export default function AdminDashboard() {
 
   return (
     <div className="admin-container">
-      <h2 className="admin-title">Admin Dashboard</h2>
+      <h2 className="admin-title">Admin Panel</h2>
 
       <div className="admin-card">
         <h3 className="section-title">Pending Agent Approvals</h3>
