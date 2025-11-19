@@ -38,7 +38,6 @@ public class AuthService {
         userRepo.save(user);
     }
 
-    // ------------------ REGISTER AGENT ------------------
     public void registerAgent(User user, String documentPath) {
         user.setRole(Role.ROLE_AGENT);
         user.setStatus(Status.PENDING);
@@ -46,8 +45,6 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepo.save(user);
     }
-
-    // ------------------ LOGIN ------------------
     public String login(String email, String password) {
         User u = userRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("Invalid credentials"));
@@ -61,22 +58,18 @@ public class AuthService {
         return jwtUtil.generateToken(u.getEmail(), u.getRole().name());
     }
 
-    // ------------------ FIND BY EMAIL ------------------
     public User findByEmail(String email) {
         return userRepo.findByEmail(email).orElse(null);
     }
 
-    // ------------------ GET ALL USERS ------------------
     public List<User> getAllUsers() {
         return userRepo.findAll();
     }
 
-    // ------------------ PENDING AGENTS ------------------
     public List<User> getPendingAgents() {
         return userRepo.findByRoleAndVerifiedFalse(Role.ROLE_AGENT);
     }
 
-    // ------------------ APPROVE AGENT ------------------
     @Transactional
     public void approveAgent(Long id) {
         User u = userRepo.findById(id)
@@ -93,7 +86,6 @@ public class AuthService {
                 "Dear " + u.getName() + ",\n\nYour agent registration has been APPROVED.\n\nRegards,\nInsurAI Team");
     }
 
-    // ------------------ REJECT AGENT ------------------
     @Transactional
     public void rejectAgent(Long id, String reason) {
 
@@ -103,7 +95,6 @@ public class AuthService {
         if (u.getRole() != Role.ROLE_AGENT)
             throw new RuntimeException("Cannot reject non-agent users");
 
-        // Send rejection email BEFORE deleting
         sendEmail(
                 u.getEmail(),
                 "Agent Registration Rejected - InsurAI",
@@ -114,12 +105,10 @@ public class AuthService {
                 "Regards,\nInsurAI Team"
         );
 
-        // DELETE the agent from DB
         userRepo.delete(u);
     }
 
 
-    // ------------------ SEND EMAIL ------------------
     private void sendEmail(String to, String subject, String text) {
         try {
             SimpleMailMessage msg = new SimpleMailMessage();

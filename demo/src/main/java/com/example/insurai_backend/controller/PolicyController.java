@@ -16,22 +16,17 @@ public class PolicyController {
     public PolicyController(PolicyService policyService) {
         this.policyService = policyService;
     }
-
-    // ONLY ADMIN → CREATE POLICY
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public Policy createPolicy(@RequestBody Policy policy) {
         return policyService.createPolicy(policy);
     }
 
-    // ONLY ADMIN → UPDATE POLICY
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public Policy updatePolicy(@PathVariable Long id, @RequestBody Policy policy) {
         return policyService.updatePolicy(id, policy);
     }
-
-    // ONLY ADMIN → DELETE POLICY
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public String deletePolicy(@PathVariable Long id) {
@@ -39,14 +34,12 @@ public class PolicyController {
         return "Policy deleted successfully";
     }
 
-    // ADMIN + AGENT + CUSTOMER → VIEW ALL POLICIES
     @PreAuthorize("hasAnyRole('ADMIN','AGENT','CUSTOMER')")
     @GetMapping
     public List<Policy> getAllPolicies() {
         return policyService.getAllPolicies();
     }
 
-    // ADMIN + AGENT + CUSTOMER → VIEW SINGLE POLICY
     @PreAuthorize("hasAnyRole('ADMIN','AGENT','CUSTOMER')")
     @GetMapping("/{id}")
     public Policy getPolicy(@PathVariable Long id) {

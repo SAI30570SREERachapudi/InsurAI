@@ -22,7 +22,6 @@ public class AgentService {
         User u = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Agent not found"));
         u.setVerified(true);
         userRepository.save(u);
-        // send email
         try {
             emailService.sendAgentApprovalMail(u.getEmail(), u.getName());
         } catch (Exception ex) {
@@ -33,7 +32,6 @@ public class AgentService {
     public void rejectAgent(Long id) {
         User u = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Agent not found"));
         userRepository.delete(u);
-        // optional: send rejection email
         try {
             emailService.sendAgentRejectionMail(u.getEmail(), u.getName());
         } catch (Exception ex) {

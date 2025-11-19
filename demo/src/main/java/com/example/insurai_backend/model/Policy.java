@@ -1,8 +1,4 @@
 package com.example.insurai_backend.model;
-
-
-import jakarta.persistence.*;
-
 import jakarta.persistence.*;
 import lombok.*;
 
