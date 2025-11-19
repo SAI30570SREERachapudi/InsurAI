@@ -1,90 +1,3 @@
-// import React from "react";
-// import { Link, useNavigate } from "react-router-dom";
-// import axios from "../services/axiosInstance";
-
-// export default function Navbar() {
-//   const navigate = useNavigate();
-//   const role = localStorage.getItem("role");
-//   const loggedIn = !!localStorage.getItem("token");
-
-//   const logout = async () => {
-//     try {
-//       await axios.post("/auth/logout");
-//     } catch (e) {}
-//     localStorage.removeItem("token");
-//     localStorage.removeItem("role");
-//     navigate("/login");
-//   };
-
-//   return (
-//     <nav
-//       style={{
-//         background: "#1e3a8a",
-//         color: "#fff",
-//         padding: 12,
-//         display: "flex",
-//         justifyContent: "space-between",
-//       }}
-//     >
-//       <div style={{ fontWeight: 700 }}>Insurai</div>
-//       <div>
-//         {loggedIn ? (
-//           <>
-//             <Link to="/policies" style={{ color: "#fff", marginRight: 10 }}>
-//               Policies
-//             </Link>
-//             {role === "ROLE_CUSTOMER" && (
-//               <Link
-//                 to="/dashboard/customer"
-//                 style={{ color: "#fff", marginRight: 10 }}
-//               >
-//                 Dashboard
-//               </Link>
-//             )}
-//             {role === "ROLE_AGENT" && (
-//               <Link
-//                 to="/dashboard/agent"
-//                 style={{ color: "#fff", marginRight: 10 }}
-//               >
-//                 Dashboard
-//               </Link>
-//             )}
-//             {role === "ROLE_ADMIN" && (
-//               <Link
-//                 to="/dashboard/admin"
-//                 style={{ color: "#fff", marginRight: 10 }}
-//               >
-//                 Admin
-//               </Link>
-//             )}
-//             <button
-//               onClick={logout}
-//               style={{
-//                 background: "#dc2626",
-//                 border: "none",
-//                 color: "#fff",
-//                 padding: "6px 10px",
-//                 borderRadius: 4,
-//               }}
-//             >
-//               Logout
-//             </button>
-//           </>
-//         ) : (
-//           <>
-//             <Link to="/login" style={{ color: "#fff", marginRight: 10 }}>
-//               Login
-//             </Link>
-//             <Link to="/register" style={{ color: "#fff", marginRight: 10 }}>
-//               Register
-//             </Link>
-//           </>
-//         )}
-//       </div>
-//     </nav>
-//   );
-// }
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../services/axiosInstance";
@@ -106,16 +19,35 @@ export default function Navbar() {
     navigate("/login");
   };
 
+  // ⭐ HOME navigation based on role
+  const goHome = () => {
+    if (!loggedIn) return navigate("/login");
+
+    if (role === "ROLE_ADMIN") navigate("/dashboard/admin");
+    else if (role === "ROLE_AGENT") navigate("/dashboard/agent");
+    else if (role === "ROLE_CUSTOMER") navigate("/dashboard/customer");
+    else navigate("/login");
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-container">
-        <div className="navbar-logo">
+        <div
+          className="navbar-logo"
+          onClick={goHome}
+          style={{ cursor: "pointer" }}
+        >
           Insur<span>AI</span>
         </div>
 
         <div className="navbar-links">
           {loggedIn ? (
             <>
+              {/* ⭐ HOME - styled like normal nav link */}
+              <span onClick={goHome} className="nav-item">
+                Home
+              </span>
+
               <Link to="/policies" className="nav-item">
                 Policies
               </Link>
@@ -125,20 +57,28 @@ export default function Navbar() {
                   Dashboard
                 </Link>
               )}
+
               {role === "ROLE_AGENT" && (
                 <Link to="/dashboard/agent" className="nav-item">
                   Agent Panel
                 </Link>
               )}
+
               {role === "ROLE_ADMIN" && (
-                <Link to="/dashboard/admin" className="nav-item">
-                  Admin
-                </Link>
+                <>
+                  <Link to="/admin/policy/add" className="nav-item">
+                    Add Policy
+                  </Link>
+
+                  <Link to="/admin/requests" className="nav-item">
+                    Requests
+                  </Link>
+                </>
               )}
 
-              <button onClick={logout} className="logout-btn">
+              <span onClick={logout} className="nav-item logout-link">
                 Logout
-              </button>
+              </span>
             </>
           ) : (
             <>

@@ -81,6 +81,8 @@ import Policies from "./pages/Policies";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Unauthorized from "./pages/Unauthorized";
+import AdminRequests from "./pages/Dashboard/AdminRequests";
+import AddPolicy from "./pages/AddPolicy";
 
 export default function App() {
   return (
@@ -122,6 +124,23 @@ export default function App() {
           element={
             <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
               <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/requests"
+          element={
+            <ProtectedRoute roles={["ADMIN"]}>
+              <AdminRequests />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/policy/add"
+          element={
+            <ProtectedRoute roles={["ADMIN"]}>
+              <AddPolicy />
             </ProtectedRoute>
           }
         />

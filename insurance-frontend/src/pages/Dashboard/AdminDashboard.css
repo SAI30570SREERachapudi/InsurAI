@@ -1,61 +1,49 @@
-.admin-container {
-  padding: 30px;
-  max-width: 1000px;
-  margin: auto;
-  font-family: Arial;
+.stats-grid {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  gap: 20px;
 }
 
-.admin-title {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #1f3a93;
-}
-
-.admin-card {
+.stat-card {
+  background: #1e3a8a;
+  color: white;
   padding: 20px;
-  background: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  border-radius: 10px;
+  flex: 1;
+  text-align: center;
+  transition: 0.3s;
 }
 
-.section-title {
-  font-size: 22px;
-  margin-bottom: 15px;
-  color: #2c3e50;
+.stat-card.clickable {
+  cursor: pointer;
 }
 
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
+.stat-card:hover {
+  background: #3b51c2;
 }
 
-.admin-table th,
-.admin-table td {
-  padding: 12px;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
+.quick-actions {
+  margin: 20px 0;
+  display: flex;
+  gap: 20px;
 }
 
-.admin-table th {
-  background: #f2f4f8;
-  font-weight: bold;
+.policy-grid {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
-.doc-link {
-  color: #0077cc;
-  text-decoration: none;
-  font-weight: bold;
+.policy-card {
+  background: white;
+  border: 1px solid #ccc;
+  padding: 15px;
+  width: 250px;
+  border-radius: 10px;
 }
 
-.doc-link:hover {
-  text-decoration: underline;
-}
-
-.status-pending {
-  color: #d35400;
-  font-weight: bold;
-}
 
 .approve-btn,
 .reject-btn {
@@ -86,4 +74,24 @@
 .loading {
   text-align: center;
   font-size: 22px;
+}
+.policy-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.policy-form input,
+.policy-form select,
+.policy-form textarea {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  font-size: 14px;
+}
+
+.policy-form button {
+  width: 200px;
+  margin-top: 15px;
+  font-size: 15px;
 }

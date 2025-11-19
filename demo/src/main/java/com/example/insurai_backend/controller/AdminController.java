@@ -39,11 +39,11 @@ public class AdminController {
         return ResponseEntity.ok(Map.of("message","Agent approved"));
     }
 
-    @PutMapping("/reject/{id}")
-    public ResponseEntity<?> reject(@PathVariable Long id) {
-        agentService.rejectAgent(id);
-        return ResponseEntity.ok(Map.of("message","Agent rejected"));
-    }
+//    @PutMapping("/reject/{id}")
+//    public ResponseEntity<?> reject(@PathVariable Long id) {
+//        agentService.rejectAgent(id);
+//        return ResponseEntity.ok(Map.of("message","Agent rejected"));
+//    }
     @PutMapping("/reject/{id}")
     public ResponseEntity<?> rejectAgent(
             @PathVariable Long id,
