@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
+import { useNavigate } from "react-router-dom"; // ← ADD THIS
 import "./Dashboard/AdminDashboard.css";
 
 export default function AddPolicy() {
+  const navigate = useNavigate(); // ← ADD THIS
+
   const [policyName, setPolicyName] = useState("");
   const [description, setDescription] = useState("");
   const [premium, setPremium] = useState("");
@@ -54,13 +57,8 @@ export default function AddPolicy() {
       await axios.post("/policies", newPolicy);
       alert("Policy added successfully!");
 
-      // Clear form
-      setPolicyName("");
-      setDescription("");
-      setPremium("");
-      setCoverageAmount("");
-      setTermInYears("");
-      setPolicyType("");
+      // 👉 Redirect to policies page
+      navigate("/policies"); // ← THIS LINE DOES THE REDIRECT
     } catch (err) {
       alert("Failed to add policy: " + (err.response?.data?.message || ""));
     }

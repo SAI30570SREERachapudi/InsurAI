@@ -1,9 +1,110 @@
-.policies-page {
-  padding: 20px;
+/* Overall page container */
+.policy-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
 }
 
+/* Title */
+.policy-title {
+  font-size: 32px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 25px;
+  color: #1e3a8a;
+  letter-spacing: 1px;
+}
+
+/* Policy grid */
 .policy-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 20px;
+  gap: 25px;
+}
+
+/* ✨ SUPER ATTRACTIVE CARD DESIGN */
+.policy-card-ultimate {
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+  padding: 25px;
+  border-radius: 18px;
+
+  text-align: center;
+  cursor: pointer;
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+  transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
+}
+
+/* Hover glow and 3D lift */
+.policy-card-ultimate:hover {
+  transform: scale(1.06) translateY(-6px);
+  box-shadow: 0 15px 28px rgba(0, 0, 0, 0.25);
+  background: linear-gradient(135deg, #4338ca, #2563eb);
+}
+
+/* Icon style */
+.pcard-icon {
+  font-size: 50px;
+  margin-bottom: 10px;
+}
+
+/* Modal overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 900;
+}
+
+/* Modal content */
+.modal-content {
+  background: white;
+  padding: 30px;
+  width: 420px;
+  border-radius: 14px;
+  animation: fadeIn .3s ease;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+}
+
+.modal-description {
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* Close button */
+.close-btn {
+  margin-top: 18px;
+  padding: 10px 18px;
+  background: #1e3a8a;
+  border: none;
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  background: #2b44b3;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { transform: scale(.9); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.policy-section {
+  margin-bottom: 40px;
+}
+
+.policy-group-title {
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #1f2937;
+  text-transform: capitalize;
+  border-left: 5px solid #6366f1;
+  padding-left: 12px;
 }

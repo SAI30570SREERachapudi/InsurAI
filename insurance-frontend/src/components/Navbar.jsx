@@ -19,7 +19,6 @@ export default function Navbar() {
     navigate("/login");
   };
 
-  // ⭐ HOME navigation based on role
   const goHome = () => {
     if (!loggedIn) return navigate("/login");
 
