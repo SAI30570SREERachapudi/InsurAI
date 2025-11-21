@@ -33,7 +33,7 @@
   cursor: pointer;
 
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
-  transition: transform .35s ease, box-shadow .35s ease, background .35s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease, background 0.35s ease;
 }
 
 /* Hover glow and 3D lift */
@@ -66,8 +66,8 @@
   padding: 30px;
   width: 420px;
   border-radius: 14px;
-  animation: fadeIn .3s ease;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  animation: fadeIn 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
 }
 
 .modal-description {
@@ -92,8 +92,14 @@
 
 /* Animations */
 @keyframes fadeIn {
-  from { transform: scale(.9); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 .policy-section {
   margin-bottom: 40px;

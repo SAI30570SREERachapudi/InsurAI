@@ -83,6 +83,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Unauthorized from "./pages/Unauthorized";
 import AdminRequests from "./pages/Dashboard/AdminRequests";
 import AddPolicy from "./pages/AddPolicy";
+import Footer from "./pages/footer";
 
 export default function App() {
   return (
@@ -106,7 +107,7 @@ export default function App() {
         <Route
           path="/dashboard/customer"
           element={
-            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER"]}>
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER","ROLE_ADMIN"]}>
               <CustomerDashboard />
             </ProtectedRoute>
           }
@@ -114,7 +115,7 @@ export default function App() {
         <Route
           path="/dashboard/agent"
           element={
-            <ProtectedRoute allowedRoles={["ROLE_AGENT"]}>
+            <ProtectedRoute allowedRoles={["ROLE_AGENT","ROLE_ADMIN"]}>
               <AgentDashboard />
             </ProtectedRoute>
           }
@@ -145,6 +146,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

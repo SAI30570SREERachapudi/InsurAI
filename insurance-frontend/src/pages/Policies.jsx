@@ -1,69 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import axios from "../services/axiosInstance";
-// import "./Policies.css";
-
-// export default function Policies() {
-//   const [policies, setPolicies] = useState([]);
-//   const [loading, setLoading] = useState(true);
-//   const [selectedPolicy, setSelectedPolicy] = useState(null);
-
-//   useEffect(() => {
-//     const fetch = async () => {
-//       try {
-//         const res = await axios.get("/policies");
-//         setPolicies(res.data);
-//       } catch (e) {
-//         console.error(e);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-//     fetch();
-//   }, []);
-
-//   return (
-//     <div className="policy-container">
-//       <h2 className="policy-title">Available Policies</h2>
-
-//       {loading ? (
-//         <p>Loading...</p>
-//       ) : (
-//         <div className="policy-grid">
-//           {policies.map((p) => (
-//             <div
-//               key={p.id}
-//               className="policy-card-ultimate"
-//               onClick={() => setSelectedPolicy(p)}
-//             >
-//               <div className="pcard-icon">🛡️</div>
-//               <h3>{p.policyName}</h3>
-//             </div>
-//           ))}
-//         </div>
-//       )}
-
-//       {/* MODAL */}
-//       {selectedPolicy && (
-//         <div className="modal-overlay" onClick={() => setSelectedPolicy(null)}>
-//           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-//             <h2>{selectedPolicy.policyName}</h2>
-
-//             <p><strong>Type:</strong> {selectedPolicy.policyType}</p>
-//             <p><strong>Premium:</strong> ₹{selectedPolicy.premium}</p>
-//             <p><strong>Coverage:</strong> ₹{selectedPolicy.coverageAmount}</p>
-//             <p><strong>Years:</strong> {selectedPolicy.termInYears}</p>
-//             <p className="modal-description">{selectedPolicy.description}</p>
-
-//             <button className="close-btn" onClick={() => setSelectedPolicy(null)}>
-//               Close
-//             </button>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// }
-
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import "./Policies.css";
@@ -105,7 +39,6 @@ export default function Policies() {
       ) : (
         Object.keys(groupedPolicies).map((type) => (
           <div key={type} className="policy-section">
-
             <h3 className="policy-group-title">{type} Policies</h3>
 
             <div className="policy-grid">
@@ -120,7 +53,6 @@ export default function Policies() {
                 </div>
               ))}
             </div>
-
           </div>
         ))
       )}
@@ -131,14 +63,25 @@ export default function Policies() {
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>{selectedPolicy.policyName}</h2>
 
-            <p><strong>Type:</strong> {selectedPolicy.policyType}</p>
-            <p><strong>Premium:</strong> ₹{selectedPolicy.premium}</p>
-            <p><strong>Coverage:</strong> ₹{selectedPolicy.coverageAmount}</p>
-            <p><strong>Years:</strong> {selectedPolicy.termInYears}</p>
+            <p>
+              <strong>Type:</strong> {selectedPolicy.policyType}
+            </p>
+            <p>
+              <strong>Premium:</strong> ₹{selectedPolicy.premium}
+            </p>
+            <p>
+              <strong>Coverage:</strong> ₹{selectedPolicy.coverageAmount}
+            </p>
+            <p>
+              <strong>Years:</strong> {selectedPolicy.termInYears}
+            </p>
 
             <p className="modal-description">{selectedPolicy.description}</p>
 
-            <button className="close-btn" onClick={() => setSelectedPolicy(null)}>
+            <button
+              className="close-btn"
+              onClick={() => setSelectedPolicy(null)}
+            >
               Close
             </button>
           </div>
