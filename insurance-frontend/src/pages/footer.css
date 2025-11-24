@@ -3,8 +3,9 @@
   background: linear-gradient(90deg, #06b6d4, #6366f1, #ec4899);
   background-size: 200% 200%;
   animation: footerGradient 8s ease infinite;
-  margin-top:3vh;
-  padding: 40px 20px;
+  /* margin-top:3vh; */
+
+  padding: 20px 20px;
   color: #fff;
   font-family: "Poppins", sans-serif;
   box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.2);
@@ -12,9 +13,15 @@
 
 /* Gradient animation */
 @keyframes footerGradient {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Layout */
@@ -49,7 +56,6 @@
 }
 
 .footer-links h4 {
-  margin-bottom: 8px;
   font-size: 18px;
   color: #ffe066;
 }
@@ -71,9 +77,9 @@
 /* Bottom */
 .footer-bottom {
   text-align: center;
-  padding-top: 25px;
-  margin-top: 25px;
-  border-top: 1px solid rgba(255,255,255,0.3);
+  padding-top: 20px;
+  margin-top: 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
   color: #f1f5f9;
   font-size: 14px;
 }

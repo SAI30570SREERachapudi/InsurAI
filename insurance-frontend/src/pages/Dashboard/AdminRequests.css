@@ -1,0 +1,148 @@
+/* Page container */
+.admin-container {
+  padding: 30px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: "Poppins", sans-serif;
+}
+
+/* Title */
+.admin-title {
+  font-size: 32px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #06b6d4, #6366f1, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Cards */
+.modern-card {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 35px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.05);
+  backdrop-filter: blur(6px);
+}
+
+/* Section Title */
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, #06b6d4, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Table */
+.stylish-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+}
+
+.stylish-table thead {
+  background: linear-gradient(90deg, #06b6d4, #6366f1, #ec4899);
+  color: white;
+}
+
+.stylish-table th, 
+.stylish-table td {
+  padding: 14px 12px;
+  text-align: left;
+  font-size: 15px;
+}
+
+.stylish-table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.stylish-table tbody tr:hover {
+  background: rgba(99, 102, 241, 0.08);
+}
+
+/* Status Styles */
+.status-approved {
+  color: #10b981;
+  font-weight: 600;
+}
+
+.status-rejected {
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: #f59e0b;
+  font-weight: 600;
+}
+
+/* Label after approval/rejection */
+.approved-label {
+  color: #10b981;
+  font-weight: bold;
+}
+
+.rejected-label {
+  color: #ef4444;
+  font-weight: bold;
+}
+
+/* Buttons */
+.approve-btn, 
+.reject-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Approve button */
+.approve-btn {
+  background: linear-gradient(135deg, #34d399, #10b981);
+  margin-right: 8px;
+}
+
+.approve-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+}
+
+/* Reject button */
+.reject-btn {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+}
+
+.reject-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+/* Document Link */
+.doc-link {
+  color: #6366f1;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.doc-link:hover {
+  color: #ec4899;
+}
+
+/* Loading Text */
+.loading {
+  text-align: center;
+  font-size: 18px;
+  margin-top: 40px;
+}

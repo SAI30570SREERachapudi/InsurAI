@@ -1,15 +1,19 @@
 import React from "react";
 
 export default function Dashboard() {
-  const role = localStorage.getItem("role");
   return (
     <div className="container" style={{ paddingTop: 20 }}>
-      <div className="card">
-        <h1>Welcome to your Dashboard</h1>
-        <p>
-          Your role: <strong>{role}</strong>
-        </p>
-        <p>From here you can navigate to policies and other modules.</p>
+      <div className="card" style={{ overflow: "hidden" }}>
+        <img
+          src="/images/homepages.png"
+          alt="Dashboard"
+          style={{
+            width: "100%",
+            height: "90vh",
+            // filter: "brightness(70%)", // reduces brightness
+            display: "block",
+          }}
+        />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import { useNavigate } from "react-router-dom"; // ← ADD THIS
-import "./Dashboard/AdminDashboard.css";
+import "./AddPolicy.css";
 
 export default function AddPolicy() {
   const navigate = useNavigate(); // ← ADD THIS
@@ -67,6 +67,7 @@ export default function AddPolicy() {
   return (
     <div className="admin-container">
       <h2 className="admin-title">Add New Policy</h2>
+     
 
       <div className="admin-card">
         <form className="policy-form" onSubmit={handleSubmit}>
