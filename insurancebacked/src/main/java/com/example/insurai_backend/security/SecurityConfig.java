@@ -55,6 +55,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/me",
                                  "/api/auth/update",
                                  "/api/auth/password/**").authenticated()
+                .requestMatchers("/api/purchases/verify/**").permitAll()
+                .requestMatchers("/api/purchases/receipt/**").authenticated() // or more specific rule
 
                 // Everything else requires login
                 .anyRequest().authenticated()

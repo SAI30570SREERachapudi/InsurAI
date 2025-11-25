@@ -1,14 +1,9 @@
 package com.example.insurai_backend.model;
 import jakarta.persistence.*;
-import lombok.*;
 
 @Entity
 @Table(name = "policies")
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+
 public class Policy {
 
     @Id

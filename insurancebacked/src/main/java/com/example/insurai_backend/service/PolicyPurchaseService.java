@@ -5,23 +5,29 @@ import com.example.insurai_backend.model.PolicyPurchase;
 import com.example.insurai_backend.model.User;
 import com.example.insurai_backend.repository.PolicyPurchaseRepository;
 import com.example.insurai_backend.repository.PolicyRepository;
+
 import org.springframework.stereotype.Service;
 
-import org.apache.pdfbox.pdmodel.*;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.pdmodel.font.PDType0Font;
+
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.common.BitMatrix;
 import com.google.zxing.BarcodeFormat;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.client.j2se.MatrixToImageWriter;
+import org.apache.pdfbox.pdmodel.graphics.image.LosslessFactory;
 
 import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.List;
 
 @Service
 public class PolicyPurchaseService {
@@ -30,18 +36,23 @@ public class PolicyPurchaseService {
     private final PolicyRepository policyRepo;
     private final AuthService authService;
 
-    public PolicyPurchaseService(PolicyPurchaseRepository repo,
-                                 PolicyRepository policyRepo,
-                                 AuthService authService) {
+    public PolicyPurchaseService(
+            PolicyPurchaseRepository repo,
+            PolicyRepository policyRepo,
+            AuthService authService
+    ) {
         this.repo = repo;
         this.policyRepo = policyRepo;
         this.authService = authService;
     }
 
+    public PolicyPurchase getById(Long id) {
+        return repo.findById(id)
+                .orElseThrow(() -> new RuntimeException("Purchase not found"));
+    }
+
     public PolicyPurchase createPurchase(Long policyId, PolicyPurchase dto) {
-
         User user = authService.getCurrentUser();
-
         Policy policy = policyRepo.findById(policyId)
                 .orElseThrow(() -> new RuntimeException("Policy not found"));
 
@@ -58,13 +69,11 @@ public class PolicyPurchaseService {
 
         return repo.save(purchase);
     }
-    public String cancelSubscription(Long id) {
-        PolicyPurchase purchase = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Purchase not found"));
 
+    public String cancelSubscription(Long id) {
+        PolicyPurchase purchase = getById(id);
         purchase.setStatus("CANCELLED");
         repo.save(purchase);
-
         return "Cancelled";
     }
 
@@ -73,163 +82,104 @@ public class PolicyPurchaseService {
         return repo.findByUser(user);
     }
 
+    // =============================
+    //   PDF GENERATION (UNICODE)
+    // =============================
+    public byte[] generateReceiptPdfBytes(PolicyPurchase purchase) throws Exception {
 
-
-    public byte[] generateReceipt(Long id) {
-        PolicyPurchase p = repo.findById(id)
-                .orElseThrow(() -> new RuntimeException("Purchase not found"));
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
         try (PDDocument doc = new PDDocument()) {
+
+            // Load unicode font
+            InputStream fontStream = getClass().getResourceAsStream("/fonts/NotoSans-Regular.ttf");
+            PDType0Font font = PDType0Font.load(doc, fontStream);
 
             PDPage page = new PDPage(PDRectangle.A4);
             doc.addPage(page);
 
-            PDPageContentStream stream = new PDPageContentStream(doc, page);
+            try (PDPageContentStream cs = new PDPageContentStream(doc, page)) {
 
-            // =======================
-            // COMPANY LOGO (OPTIONAL)
-            // =======================
-            try {
-                PDImageXObject logo = PDImageXObject.createFromFile("src/main/resources/static/logo.png", doc);
-                stream.drawImage(logo, 50, 740, 120, 60); // x, y, width, height
-            } catch (Exception e) {
-                // ignore missing logo
+                float margin = 40;
+                float y = page.getMediaBox().getHeight() - margin;
+
+                // ========================
+                // LOGO
+                // ========================
+                try {
+                    InputStream logoStream = getClass().getResourceAsStream("/static/logo.png");
+                    if (logoStream != null) {
+                        byte[] logoBytes = logoStream.readAllBytes();
+                        PDImageXObject logo = PDImageXObject.createFromByteArray(doc, logoBytes, "logo");
+
+                        float width = 120;
+                        float height = (logo.getHeight() * width) / logo.getWidth();
+                        cs.drawImage(logo, margin, y - height, width, height);
+                    }
+                } catch (Exception ex) {
+                    System.out.println("Logo not found");
+                }
+
+                // ========================
+                // HEADER
+                // ========================
+                write(cs, font, 20, margin + 150, y - 20, "InsurAI Insurance Receipt");
+
+                float cursor = y - 90;
+
+                // ========================
+                // PURCHASE DETAILS
+                // ========================
+                write(cs, font, 12, margin, cursor, "Receipt ID: " + purchase.getId()); cursor -= 18;
+                write(cs, font, 12, margin, cursor, "Customer: " + purchase.getUser().getName()); cursor -= 18;
+                write(cs, font, 12, margin, cursor, "Email: " + purchase.getUser().getEmail()); cursor -= 18;
+                write(cs, font, 12, margin, cursor, "Purchase Date: " + purchase.getPurchaseDate().format(df)); cursor -= 18;
+                write(cs, font, 12, margin, cursor, "Next Premium Due: " + purchase.getNextPremiumDue().format(df)); cursor -= 25;
+
+                write(cs, font, 12, margin, cursor, "Policy Name: " + purchase.getPolicy().getPolicyName()); cursor -= 18;
+                write(cs, font, 12, margin, cursor, "Premium: ₹" + purchase.getPolicy().getPremium()); cursor -= 18;
+                write(cs, font, 12, margin, cursor, "Coverage: ₹" + purchase.getPolicy().getCoverageAmount()); cursor -= 18;
+
+                if (purchase.getPolicy().getTermInYears() != null) {
+                    LocalDate expiry = purchase.getPurchaseDate().plusYears(purchase.getPolicy().getTermInYears());
+                    write(cs, font, 12, margin, cursor, "Term: " + purchase.getPolicy().getTermInYears() + " years");
+                    cursor -= 18;
+                    write(cs, font, 12, margin, cursor, "Expiry: " + expiry.format(df));
+                    cursor -= 25;
+                }
+
+                // ========================
+                // QR CODE
+                // ========================
+                String verifyUrl = "http://localhost:5173/verify-receipt/" + purchase.getId();
+
+                BitMatrix matrix = new MultiFormatWriter()
+                        .encode(verifyUrl, BarcodeFormat.QR_CODE, 230, 230);
+
+                BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(matrix);
+                PDImageXObject qr = LosslessFactory.createFromImage(doc, qrImage);
+
+                cs.drawImage(qr, page.getMediaBox().getWidth() - 200, cursor + 40, 140, 140);
+
+                // ========================
+                // FOOTER
+                // ========================
+                write(cs, font, 11, margin, 80, "Verify this receipt online:");
+                write(cs, font, 11, margin, 60, verifyUrl);
             }
 
-            // =======================
-            // TITLE
-            // =======================
-            stream.setFont(PDType1Font.HELVETICA_BOLD, 22);
-            stream.beginText();
-            stream.newLineAtOffset(200, 780);
-            stream.showText("Insurance Receipt");
-            stream.endText();
-
-
-            // =======================
-            // PURCHASE TABLE
-            // =======================
-            int y = 700;
-            int step = 22;
-
-            stream.setFont(PDType1Font.HELVETICA, 12);
-
-            String[][] rows = {
-                    {"Customer Name", p.getUser().getName()},
-                    {"Policy Name", p.getPolicy().getPolicyName()},
-                    {"Purchase Date", p.getPurchaseDate().toString()},
-                    {"Next Premium Due", p.getNextPremiumDue().toString()},
-                    {"Status", p.getStatus()},
-                    {"Nominee Name", p.getNomineeName()},
-                    {"Nominee Relation", p.getNomineeRelation()},
-                    {"Nominee Phone", p.getNomineePhone()},
-                    {"Nominee Age", p.getNomineeAge().toString()},
-            };
-
-            for (String[] row : rows) {
-                stream.beginText();
-                stream.newLineAtOffset(50, y);
-                stream.showText(row[0] + ": ");
-                stream.endText();
-
-                stream.beginText();
-                stream.newLineAtOffset(200, y);
-                stream.showText(row[1]);
-                stream.endText();
-
-                y -= step;
-            }
-
-            // =======================
-            // QR CODE
-            // =======================
-            String qrText = "Receipt ID: " + p.getId() +
-                    "\nPolicy: " + p.getPolicy().getPolicyName() +
-                    "\nCustomer: " + p.getUser().getName();
-
-            QRCodeWriter qrWriter = new QRCodeWriter();
-            var bitMatrix = qrWriter.encode(qrText, BarcodeFormat.QR_CODE, 150, 150);
-            BufferedImage qrImage = MatrixToImageWriter.toBufferedImage(bitMatrix);
-
-            ByteArrayOutputStream qrOut = new ByteArrayOutputStream();
-            ImageIO.write(qrImage, "PNG", qrOut);
-
-            PDImageXObject qr = PDImageXObject.createFromByteArray(doc, qrOut.toByteArray(), "QR");
-            stream.drawImage(qr, 400, 600);
-
-            // ================================
-            // PREMIUM RENEWAL REMINDER
-            // ================================
-            long daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), p.getNextPremiumDue());
-            y -= 40;
-
-            stream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-            stream.beginText();
-            stream.newLineAtOffset(50, y);
-            stream.showText("Premium Reminder");
-            stream.endText();
-
-            y -= 18;
-            stream.setFont(PDType1Font.HELVETICA, 12);
-            stream.beginText();
-            stream.newLineAtOffset(50, y);
-            stream.showText("Days left for next premium: " + daysLeft + " days");
-            stream.endText();
-
-
-            // ================================
-            // PURCHASE TIMELINE + EXPIRY
-            // ================================
-            y -= 40;
-            stream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-            stream.beginText();
-            stream.newLineAtOffset(50, y);
-            stream.showText("Policy Timeline");
-            stream.endText();
-
-            y -= 18;
-            stream.setFont(PDType1Font.HELVETICA, 12);
-            stream.beginText();
-            stream.newLineAtOffset(50, y);
-            stream.showText("Policy Term: " + p.getPolicy().getTermInYears() + " years");
-            stream.endText();
-
-            LocalDate expiry = p.getPurchaseDate().plusYears(p.getPolicy().getTermInYears());
-
-            y -= 18;
-            stream.beginText();
-            stream.newLineAtOffset(50, y);
-            stream.showText("Policy Expires On: " + expiry);
-            stream.endText();
-
-
-            // =======================
-            // SIGNATURE
-            // =======================
-            stream.setFont(PDType1Font.HELVETICA_BOLD, 14);
-            stream.beginText();
-            stream.newLineAtOffset(50, 120);
-            stream.showText("Authorized Signatory");
-            stream.endText();
-
-            stream.setFont(PDType1Font.HELVETICA, 12);
-            stream.beginText();
-            stream.newLineAtOffset(50, 100);
-            stream.showText("InsurAI Digital Signature");
-            stream.endText();
-
-
-            stream.close();
-
-            ByteArrayOutputStream out = new ByteArrayOutputStream();
-            doc.save(out);
-            return out.toByteArray();
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to generate PDF: " + e.getMessage());
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            doc.save(baos);
+            return baos.toByteArray();
         }
     }
 
-
-
+    // UNIFIED SAFE TEXT METHOD
+    private void write(PDPageContentStream cs, PDType0Font font, int size, float x, float y, String text) throws Exception {
+        cs.beginText();
+        cs.setFont(font, size);
+        cs.newLineAtOffset(x, y);
+        cs.showText(text);
+        cs.endText();
+    }
 }
