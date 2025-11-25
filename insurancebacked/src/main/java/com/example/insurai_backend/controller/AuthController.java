@@ -6,7 +6,6 @@ import com.example.insurai_backend.service.AuthService;
 import com.example.insurai_backend.util.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -83,28 +82,28 @@ public class AuthController {
     public java.util.List<User> pendingAgents() {
     	return authService.getPendingAgents();
     }
- // Get logged-in user
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_AGENT', 'ROLE_CUSTOMER')")
-    @GetMapping("/me")
-    public User getLoggedUser() {
-        return authService.getCurrentUser();
-    }
+ // =========================
+//  PROFILE & PASSWORD APIs
+// =========================
 
-    // Update profile
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_AGENT', 'ROLE_CUSTOMER')")
-    @PutMapping("/update")
-    public User updateProfile(@RequestBody User updated) {
-        return authService.updateProfile(updated);
-    }
+@GetMapping("/me")
+public User getLoggedUser() {
+    return authService.getCurrentUser();
+}
 
-    // Change password
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_AGENT', 'ROLE_CUSTOMER')")
-    @PutMapping("/change-password")
-    public String changePassword(@RequestBody Map<String, String> body) {
-        String newPassword = body.get("newPassword");
-        authService.changePassword(newPassword);
-        return "Password updated";
-    }
+@PutMapping("/update")
+public User updateProfile(@RequestBody User updated) {
+    return authService.updateProfile(updated);
+}
 
+@PostMapping("/password/request-otp")
+public String requestOtp(@RequestBody Map<String,String> body) {
+    return authService.requestPasswordOtp(body.get("oldPassword"));
+}
+
+@PostMapping("/password/verify")
+public String verifyOtp(@RequestBody Map<String,String> body) {
+    return authService.verifyPasswordOtp(body.get("otp"), body.get("newPassword"));
+}
 
 }

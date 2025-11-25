@@ -33,6 +33,8 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+
+
         <Route
           path="/dashboard/customer"
           element={

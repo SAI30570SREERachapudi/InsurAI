@@ -61,6 +61,8 @@
 
 package com.example.insurai_backend.model;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -87,6 +89,9 @@ public class User {
     private Status status;
 
     private boolean verified;
+    private String otp;
+    private LocalDateTime otpExpiry;
+
 
     public User() {}
 
@@ -129,4 +134,9 @@ public class User {
     // ⭐ ADDRESS
     public String getAddress() { return address; }
     public void setAddress(String address) { this.address = address; }
+    // ⭐ OTP
+    public String getOtp() { return otp; }
+    public void setOtp(String otp) { this.otp = otp; }
+    public LocalDateTime getOtpExpiry() { return otpExpiry; }
+    public void setOtpExpiry(LocalDateTime otpExpiry) { this.otpExpiry = otpExpiry; }
 }

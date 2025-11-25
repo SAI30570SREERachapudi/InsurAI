@@ -121,7 +121,6 @@ public class AuthService {
             System.err.println("Failed to send email: " + e.getMessage());
         }
     }
- // Get currently logged-in user
     public User getCurrentUser() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
         return userRepo.findByEmail(email)
@@ -135,10 +134,8 @@ public class AuthService {
         current.setName(updated.getName());
         current.setEmail(updated.getEmail());
         current.setDocumentPath(updated.getDocumentPath());
-
-        // If you add phone/address:
-        // current.setPhone(updated.getPhone());
-        // current.setAddress(updated.getAddress());
+        current.setPhone(updated.getPhone());
+        current.setAddress(updated.getAddress());
 
         return userRepo.save(current);
     }
@@ -149,5 +146,55 @@ public class AuthService {
         current.setPassword(passwordEncoder.encode(newPassword));
         userRepo.save(current);
     }
+    private String generateOtp() {
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder otp = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            int index = (int)(Math.random() * chars.length());
+            otp.append(chars.charAt(index));
+        }
+        return otp.toString();
+    }
+    public String requestPasswordOtp(String oldPassword) {
+        User u = getCurrentUser();
+        if (!passwordEncoder.matches(oldPassword, u.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+        String otp = generateOtp(); 
+        u.setOtp(otp);
+        u.setOtpExpiry(java.time.LocalDateTime.now().plusMinutes(5));
+        userRepo.save(u);
+
+        sendEmail(
+            u.getEmail(),
+            "InsurAI - Password Reset OTP",
+            "Dear " + u.getName() + ",\n\n"
+                + "Your OTP for password reset is: " + otp + "\n\n"
+                + "Valid for 5 minutes.\n\n"
+                + "If this wasn't you, please ignore this email.\n\n"
+                + "Regards,\nInsurAI Team"
+        );
+
+        return "OTP sent to your email.";
+    }
+    public String verifyPasswordOtp(String otp, String newPassword) {
+        User u = getCurrentUser();
+
+        if (u.getOtp() == null || !u.getOtp().equals(otp)) {
+            throw new RuntimeException("Invalid OTP");
+        }
+
+        if (u.getOtpExpiry().isBefore(java.time.LocalDateTime.now())) {
+            throw new RuntimeException("OTP has expired");
+        }
+        u.setPassword(passwordEncoder.encode(newPassword));
+        u.setOtp(null);
+        u.setOtpExpiry(null);
+
+        userRepo.save(u);
+
+        return "Password changed successfully.";
+    }
+
 
 }

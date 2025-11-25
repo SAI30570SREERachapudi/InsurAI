@@ -28,7 +28,7 @@
   color: white;
   padding: 25px;
   border-radius: 18px;
-  position: relative;      /* IMPORTANT */
+  position: relative; /* IMPORTANT */
 
   text-align: center;
   cursor: pointer;
@@ -123,7 +123,8 @@
   gap: 6px;
 }
 
-.edit-btn, .delete-btn {
+.edit-btn,
+.delete-btn {
   cursor: pointer;
   font-size: 18px;
   padding: 4px;
@@ -137,4 +138,29 @@
 
 .delete-btn:hover {
   background: rgba(255, 0, 0, 0.15);
+}
+/* Position Buy Now button similar to admin buttons */
+.customer-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.buy-btn {
+  background: linear-gradient(90deg, #d7ed19, #1bd036);
+  color: white;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.buy-btn:hover {
+  transform: scale(1.05);
+}
+
+.policy-card-ultimate {
+  position: relative;
 }

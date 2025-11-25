@@ -60,35 +60,49 @@ export default function Policies() {
             <div className="policy-grid">
               {groupedPolicies[type].map((p) => (
                 <div key={p.id} className="policy-card-ultimate">
-                  
-                  {/* Admin Buttons */}
-                  {role === "ROLE_ADMIN" && (
-                    <div className="admin-actions">
-                      <span
-                        className="edit-btn"
-                        onClick={() => navigate(`/admin/policy/edit/${p.id}`)}
-                      >
-                        ✏️
-                      </span>
 
-                      <span
-                        className="delete-btn"
-                        onClick={() => deletePolicy(p.id)}
-                      >
-                        🗑️
-                      </span>
-                    </div>
-                  )}
+  {/* Admin Buttons */}
+  {role === "ROLE_ADMIN" && (
+    <div className="admin-actions">
+      <span
+        className="edit-btn"
+        onClick={() => navigate(`/admin/policy/edit/${p.id}`)}
+      >
+        ✏️
+      </span>
 
-                  <div
-                    className="policy-card-content"
-                    onClick={() => setSelectedPolicy(p)}
-                  >
-                    <div className="pcard-icon">📄</div>
-                    <h3>{p.policyName}</h3>
-                  </div>
+      <span
+        className="delete-btn"
+        onClick={() => deletePolicy(p.id)}
+      >
+        🗑️
+      </span>
+    </div>
+  )}
 
-                </div>
+  {/* Customer Buy Now Button */}
+  {role === "ROLE_CUSTOMER" && (
+    <div className="customer-actions">
+      <button
+        className="buy-btn"
+        onClick={() => navigate(`/policies/buy/${p.id}`)}
+      >
+        Buy Now
+      </button>
+    </div>
+  )}
+
+  {/* Card content */}
+  <div
+    className="policy-card-content"
+    onClick={() => setSelectedPolicy(p)}
+  >
+    <div className="pcard-icon">📄</div>
+    <h3>{p.policyName}</h3>
+  </div>
+
+</div>
+
               ))}
             </div>
           </div>
