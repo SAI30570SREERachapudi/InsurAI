@@ -17,7 +17,7 @@ import Profile from "./pages/Profile";
 import PolicyBuy from "./pages/PolicyBuy";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
 import MyPolicies from "./pages/MyPolicies";
-
+import VerifyReceipt from "./pages/VerifyReceipt";
 export default function App() {
   return (
     <BrowserRouter>
@@ -70,6 +70,7 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+        <Route path="/verify-receipt/:id" element={<VerifyReceipt />} />
 
         {/* <Route
           path="/dashboard/customer"
