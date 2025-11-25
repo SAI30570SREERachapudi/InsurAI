@@ -1,0 +1,10 @@
+package com.example.insurai_backend.repository;
+
+import com.example.insurai_backend.model.PolicyPurchase;
+import com.example.insurai_backend.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
+
+public interface PolicyPurchaseRepository extends JpaRepository<PolicyPurchase, Long> {
+    List<PolicyPurchase> findByUser(User user);
+}

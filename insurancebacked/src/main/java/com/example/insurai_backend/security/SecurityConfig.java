@@ -61,6 +61,7 @@
 	            	    .requestMatchers("/api/dashboard/agent/**").hasRole("AGENT")
 	            	    .requestMatchers("/api/dashboard/customer/**").hasRole("CUSTOMER")
 	            	    .requestMatchers("/api/auth/**").authenticated()   
+	            	    .requestMatchers("/api/purchases/**").authenticated() 
 	            	    .anyRequest().authenticated()
 	            	);
 	

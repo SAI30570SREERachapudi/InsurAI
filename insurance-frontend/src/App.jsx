@@ -14,6 +14,10 @@ import AddPolicy from "./pages/AddPolicy";
 import Footer from "./pages/footer";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
+import PolicyBuy from "./pages/PolicyBuy";
+import PurchaseSuccess from "./pages/PurchaseSuccess";
+import MyPolicies from "./pages/MyPolicies";
+
 export default function App() {
   return (
     <BrowserRouter>
@@ -33,16 +37,48 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-
+        <Route
+          path="/policies/buy/:id"
+          element={
+            <ProtectedRoute
+              allowedRoles={
+                [
+                  "ROLE_CUSTOMER",
+                  "ROLE_ADMIN",
+                ] /* admin can view but only customers buy*/
+              }
+            >
+              <PolicyBuy />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
+          path="/purchase/success"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER", "ROLE_ADMIN"]}>
+              <PurchaseSuccess />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/customer/"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER", "ROLE_ADMIN"]}>
+              <MyPolicies />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* <Route
           path="/dashboard/customer"
           element={
             <ProtectedRoute allowedRoles={["ROLE_CUSTOMER", "ROLE_ADMIN"]}>
               <CustomerDashboard />
             </ProtectedRoute>
           }
-        />
+        /> */}
         <Route
           path="/dashboard/agent"
           element={
