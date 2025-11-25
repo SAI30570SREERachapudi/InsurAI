@@ -74,6 +74,11 @@ export default function Navbar() {
                   </Link>
                 </>
               )}
+              {role !== "ROLE_ADMIN" && (
+                <Link to="/profile" className="nav-item">
+                  Profile
+                </Link>
+              )}
 
               <span onClick={logout} className="nav-item logout-link">
                 Logout

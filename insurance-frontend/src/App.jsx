@@ -13,6 +13,7 @@ import AdminRequests from "./pages/Dashboard/AdminRequests";
 import AddPolicy from "./pages/AddPolicy";
 import Footer from "./pages/footer";
 import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 export default function App() {
   return (
     <BrowserRouter>
@@ -64,14 +65,22 @@ export default function App() {
             </ProtectedRoute>
           }
         />
-<Route
-  path="/admin/policy/edit/:id"
-  element={
-    <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
-      <AddPolicy /> {/* You can reuse AddPolicy with edit mode */}
-    </ProtectedRoute>
-  }
-/>
+        <Route
+          path="/admin/policy/edit/:id"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
+              <AddPolicy /> {/* You can reuse AddPolicy with edit mode */}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER", "ROLE_AGENT"]}>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
 
         <Route
           path="/admin/policy/add"

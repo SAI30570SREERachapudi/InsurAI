@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @Service
 public class AuthService {
@@ -120,4 +121,33 @@ public class AuthService {
             System.err.println("Failed to send email: " + e.getMessage());
         }
     }
+ // Get currently logged-in user
+    public User getCurrentUser() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return userRepo.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    // Update profile
+    public User updateProfile(User updated) {
+        User current = getCurrentUser();
+
+        current.setName(updated.getName());
+        current.setEmail(updated.getEmail());
+        current.setDocumentPath(updated.getDocumentPath());
+
+        // If you add phone/address:
+        // current.setPhone(updated.getPhone());
+        // current.setAddress(updated.getAddress());
+
+        return userRepo.save(current);
+    }
+
+    // Change password
+    public void changePassword(String newPassword) {
+        User current = getCurrentUser();
+        current.setPassword(passwordEncoder.encode(newPassword));
+        userRepo.save(current);
+    }
+
 }
