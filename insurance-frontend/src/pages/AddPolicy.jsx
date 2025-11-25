@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
-import { useNavigate } from "react-router-dom"; // ← ADD THIS
+import { useNavigate, useParams } from "react-router-dom";
 import "./AddPolicy.css";
 
 export default function AddPolicy() {
-  const navigate = useNavigate(); // ← ADD THIS
+  const navigate = useNavigate();
+  const { id } = useParams(); // << detect edit mode
 
   const [policyName, setPolicyName] = useState("");
   const [description, setDescription] = useState("");
@@ -14,10 +15,15 @@ export default function AddPolicy() {
   const [policyType, setPolicyType] = useState("");
 
   const [policyTypes, setPolicyTypes] = useState([]);
+  const [isEdit, setIsEdit] = useState(false);
 
   useEffect(() => {
     loadPolicyTypes();
-  }, []);
+    if (id) {
+      setIsEdit(true);
+      loadPolicyForEditing(id);
+    }
+  }, [id]);
 
   async function loadPolicyTypes() {
     try {
@@ -28,22 +34,26 @@ export default function AddPolicy() {
     }
   }
 
+  async function loadPolicyForEditing(policyId) {
+    try {
+      const res = await axios.get(`/policies/${policyId}`);
+      const p = res.data;
+
+      setPolicyName(p.policyName);
+      setDescription(p.description);
+      setPremium(p.premium);
+      setCoverageAmount(p.coverageAmount);
+      setTermInYears(p.termInYears);
+      setPolicyType(p.policyType);
+    } catch (err) {
+      alert("Failed to load policy for editing.");
+    }
+  }
+
   async function handleSubmit(e) {
     e.preventDefault();
 
-    if (
-      !policyName ||
-      !description ||
-      !premium ||
-      !coverageAmount ||
-      !termInYears ||
-      !policyType
-    ) {
-      alert("Please fill all fields.");
-      return;
-    }
-
-    const newPolicy = {
+    const policyData = {
       policyName,
       description,
       premium,
@@ -54,22 +64,27 @@ export default function AddPolicy() {
     };
 
     try {
-      await axios.post("/policies", newPolicy);
-      alert("Policy added successfully!");
+      if (isEdit) {
+        await axios.put(`/policies/${id}`, policyData);
+        alert("Policy updated successfully!");
+      } else {
+        await axios.post("/policies", policyData);
+        alert("Policy added successfully!");
+      }
 
-      // 👉 Redirect to policies page
-      navigate("/policies"); // ← THIS LINE DOES THE REDIRECT
+      navigate("/policies");
     } catch (err) {
-      alert("Failed to add policy: " + (err.response?.data?.message || ""));
+      alert("Failed: " + (err.response?.data?.message || ""));
     }
   }
 
   return (
     <div className="admin-container">
-      <h2 className="admin-title">Add New Policy</h2>
-     
+      <h2 className="admin-title">
+        {isEdit ? "Edit Policy" : "Add New Policy"}
+      </h2>
 
-      <div className="admin-card">
+      <div className="admin-card glass-card">
         <form className="policy-form" onSubmit={handleSubmit}>
           <label>Policy Name</label>
           <input
@@ -83,8 +98,8 @@ export default function AddPolicy() {
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            placeholder="Enter policy description"
             rows="4"
+            placeholder="Enter policy description"
           />
 
           <label>Premium</label>
@@ -125,7 +140,7 @@ export default function AddPolicy() {
           </select>
 
           <button type="submit" className="approve-btn">
-            Save Policy
+            {isEdit ? "Update Policy" : "Save Policy"}
           </button>
         </form>
       </div>

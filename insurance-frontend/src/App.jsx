@@ -64,6 +64,14 @@ export default function App() {
             </ProtectedRoute>
           }
         />
+<Route
+  path="/admin/policy/edit/:id"
+  element={
+    <ProtectedRoute allowedRoles={["ROLE_ADMIN"]}>
+      <AddPolicy /> {/* You can reuse AddPolicy with edit mode */}
+    </ProtectedRoute>
+  }
+/>
 
         <Route
           path="/admin/policy/add"
