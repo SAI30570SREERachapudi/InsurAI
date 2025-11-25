@@ -85,7 +85,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  color: #fff;
+  color: #070707;
 }
 
 .status.active {
@@ -119,4 +119,149 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+.receipt-btn {
+  background: #007bff;
+  color: white;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+.receipt-btn:hover {
+  background: #0056b3;
+}
+/* wrapper centers the card */
+.purchase-wrapper {
+  padding: 30px;
+  display: flex;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+}
+
+/* card */
+.purchase-card {
+  width: 680px;
+  max-width: 95%;
+  background: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(13,24,47,0.12);
+  border: 1px solid rgba(99,102,241,0.08);
+}
+
+/* slightly wider for MyPolicies list */
+.purchase-card.wide { width: 900px; }
+
+/* steps */
+.purchase-steps {
+  display:flex;
+  gap:10px;
+  margin-bottom: 18px;
+}
+.step {
+  padding:6px 10px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  font-weight:600;
+  color:#374151;
+}
+.step.active { background: linear-gradient(90deg,#06b6d4,#6366f1); color:white; }
+
+/* content */
+.step-panel { margin-top: 12px; display:flex; flex-direction: column; gap:12px; }
+.desc { color:#374151; opacity:0.85; }
+
+/* inputs */
+.step-panel input {
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  font-size: 14px;
+}
+
+/* actions row */
+.purchase-actions {
+  display:flex;
+  justify-content: flex-end;
+  gap:10px;
+  margin-top: 14px;
+}
+
+/* buttons */
+.btn {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+.btn.primary {
+  background: linear-gradient(90deg,#06b6d4,#6366f1);
+  color: white;
+}
+.btn.ghost {
+  background: #f3f4f6;
+  color: #111827;
+}
+
+/* purchase list */
+.purchase-list { display:flex; flex-direction: column; gap: 12px; margin-top: 12px; }
+.purchase-item {
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9));
+  border: 1px solid rgba(14,165,233,0.06);
+}
+
+.pi-title { font-weight:700; }
+.pi-meta { color:#6b7280; font-size:13px; margin-top:6px; }
+.status { padding:6px 10px; border-radius: 8px; font-weight:700; }
+.status.active { background: linear-gradient(90deg,#34d399,#10b981); color:white; }
+.status.expired { background: #fca5a5; color:#7f1d1d; }
+
+/* loading/error */
+.purchase-loading, .purchase-error { text-align:center; padding: 40px; color:#374151; }
+.purchase-actions {
+  margin-top: 10px;
+  display: flex;
+  gap: 10px;
+}
+
+.receipt-btn,
+.cancel-btn {
+  padding: 8px 14px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.receipt-btn {
+  background: #1976d2;
+  color: white;
+}
+
+.receipt-btn:hover {
+  background: #0d47a1;
+}
+
+.cancel-btn {
+  background: #e53935;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #b71c1c;
+}
+
+.cancel-btn:disabled {
+  background: gray;
+  cursor: not-allowed;
+  opacity: 0.6;
 }

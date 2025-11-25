@@ -130,7 +130,7 @@ export default function Profile() {
       setEditOpen(false);
       loadProfile();
     } catch (e) {
-      alert("Failed to update profile");
+      alert("Failed to update profile"+e.message);
     }
   };
 
@@ -151,7 +151,7 @@ export default function Profile() {
       alert("Password updated successfully!");
       setPassOpen(false);
     } catch (e) {
-      alert("OTP Verification failed");
+      alert("OTP Verification failed"+e.message);
     }
   };
 
