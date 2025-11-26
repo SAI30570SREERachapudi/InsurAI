@@ -21,6 +21,7 @@ import BookAppointment from "./pages/appointments/Appointments";
 import CustomerAppointments from "./pages/appointments/CustomerAppointments";
 import AgentAppointments from "./pages/appointments/AgentAppointments";
 import VerifyReceipt from "./pages/VerifyReceipt";
+import CustomerHomePage from "./pages/CustomerHomePage";
 export default function App() {
   return (
     <BrowserRouter>
@@ -114,6 +115,14 @@ export default function App() {
           element={
             <ProtectedRoute allowedRoles={["ROLE_AGENT", "ROLE_ADMIN"]}>
               <AgentDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/homepage/customer"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER"]}>
+              <CustomerHomePage />
             </ProtectedRoute>
           }
         />

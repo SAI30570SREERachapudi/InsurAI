@@ -1,0 +1,119 @@
+.home-container {
+     margin-top: 3vh;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* ========================= HERO ========================= */
+.home-hero {
+  background: linear-gradient(135deg, #4e9af1, #6cd4ff);
+  padding: 30px;
+  border-radius: 16px;
+  color: white;
+  margin-bottom: 30px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.home-hero h1 span {
+  color: #fff890;
+}
+
+/* ========================= STATS ========================= */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+  transition: 0.3s;
+  color: black;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  color: white;
+}
+
+.stat-card h3 {
+  margin: 0;
+  font-size: 28px;
+  color: #2f78ff;
+}
+
+.stat-card.highlight {
+  background: #2f78ff;
+  color: white;
+}
+
+/* ========================= SECTIONS ========================= */
+.section-card {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 25px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.08);
+}
+
+/* Appointment Box */
+.appointment-box {
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 10px;
+  background: #f1f6ff;
+  border-left: 4px solid #2f78ff;
+}
+
+/* ========================= POLICY SUGGESTIONS ========================= */
+.policy-suggestions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.policy-card {
+  flex: 1;
+  padding: 18px;
+  background: #e9f3ff;
+  border-radius: 12px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.policy-card:hover {
+  background: #d0e8ff;
+  transform: translateY(-5px);
+}
+
+/* ========================= TIPS CAROUSEL ========================= */
+.tips-carousel {
+  margin-top: 30px;
+}
+
+.tips-slider {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  padding: 10px 0;
+}
+
+.tip {
+  min-width: 260px;
+  background: #fff3cd;
+  padding: 14px;
+  border-radius: 10px;
+  white-space: nowrap;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

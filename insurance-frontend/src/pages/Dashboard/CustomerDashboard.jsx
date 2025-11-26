@@ -35,7 +35,8 @@ export default function CustomerDashboard() {
     <div className="customer-dashboard">
       <h2 className="customer-title">Customer Dashboard</h2>
       <p className="customer-subtitle">
-        Welcome back! View your policies, renewal details, and claim status here.
+        Welcome back! View your policies, renewal details, and claim status
+        here.
       </p>
 
       <div className="policy-section">

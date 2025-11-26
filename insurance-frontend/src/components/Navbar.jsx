@@ -24,7 +24,7 @@ export default function Navbar() {
 
     if (role === "ROLE_ADMIN") navigate("/dashboard/admin");
     else if (role === "ROLE_AGENT") navigate("/dashboard/agent");
-    else if (role === "ROLE_CUSTOMER") navigate("/dashboard/customer");
+    else if (role === "ROLE_CUSTOMER") navigate("/homepage/customer");
     else navigate("/login");
   };
 
