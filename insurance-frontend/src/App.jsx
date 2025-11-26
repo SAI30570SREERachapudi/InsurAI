@@ -17,6 +17,9 @@ import Profile from "./pages/Profile";
 import PolicyBuy from "./pages/PolicyBuy";
 import PurchaseSuccess from "./pages/PurchaseSuccess";
 import MyPolicies from "./pages/MyPolicies";
+import BookAppointment from "./pages/appointments/Appointments";
+import CustomerAppointments from "./pages/appointments/CustomerAppointments";
+import AgentAppointments from "./pages/appointments/AgentAppointments";
 import VerifyReceipt from "./pages/VerifyReceipt";
 export default function App() {
   return (
@@ -49,6 +52,32 @@ export default function App() {
               }
             >
               <PolicyBuy />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/appointments/book"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER"]}>
+              <BookAppointment />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/appointments/customer"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_CUSTOMER"]}>
+              <CustomerAppointments />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/appointments/agent"
+          element={
+            <ProtectedRoute allowedRoles={["ROLE_AGENT"]}>
+              <AgentAppointments />
             </ProtectedRoute>
           }
         />

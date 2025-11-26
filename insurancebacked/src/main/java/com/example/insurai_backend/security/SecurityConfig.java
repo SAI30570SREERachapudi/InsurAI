@@ -47,7 +47,7 @@ public class SecurityConfig {
                 // Agent and customer dashboards
                 .requestMatchers("/api/dashboard/agent/**").hasAuthority("ROLE_AGENT")
                 .requestMatchers("/api/dashboard/customer/**").hasAuthority("ROLE_CUSTOMER")
-
+                .requestMatchers("/api/appointments/**").authenticated()
                 // Purchases (receipt included)
                 .requestMatchers("/api/purchases/**").authenticated()
 

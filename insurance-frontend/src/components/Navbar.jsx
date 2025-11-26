@@ -62,7 +62,16 @@ export default function Navbar() {
                   Agent Panel
                 </Link>
               )}
-
+              {role === "ROLE_CUSTOMER" && (
+                <Link to="/appointments/book" className="nav-item">
+                  Connect
+                </Link>
+              )}
+              {role === "ROLE_AGENT" && (
+                <Link to="/appointments/agent" className="nav-item">
+                  My Meetings
+                </Link>
+              )}
               {role === "ROLE_ADMIN" && (
                 <>
                   <Link to="/admin/policy/add" className="nav-item">

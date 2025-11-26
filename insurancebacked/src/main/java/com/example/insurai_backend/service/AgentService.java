@@ -1,6 +1,7 @@
 package com.example.insurai_backend.service;
 
 import com.example.insurai_backend.model.Role;
+import com.example.insurai_backend.model.Status;
 import com.example.insurai_backend.model.User;
 import com.example.insurai_backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,14 @@ public class AgentService {
     }
 
     public void approveAgent(Long id) {
-        User u = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Agent not found"));
+        User u = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agent not found"));
+
+        u.setStatus(Status.APPROVED);   // ⭐ REQUIRED
         u.setVerified(true);
-        userRepository.save(u);
+
+        userRepository.save(u);         // ⭐ must save updated entity
+
         try {
             emailService.sendAgentApprovalMail(u.getEmail(), u.getName());
         } catch (Exception ex) {
@@ -29,13 +35,21 @@ public class AgentService {
         }
     }
 
-    public void rejectAgent(Long id) {
-        User u = userRepository.findById(id).orElseThrow(() -> new RuntimeException("Agent not found"));
-        userRepository.delete(u);
+
+    public void rejectAgent(Long id, String reason) {
+        User u = userRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Agent not found"));
+
+        u.setStatus(Status.REJECTED);
+        u.setVerified(false);
+
+        userRepository.save(u);
+
         try {
             emailService.sendAgentRejectionMail(u.getEmail(), u.getName());
         } catch (Exception ex) {
             System.err.println("Email send failed: " + ex.getMessage());
         }
     }
+
 }

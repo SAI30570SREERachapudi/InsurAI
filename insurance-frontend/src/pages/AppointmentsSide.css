@@ -1,0 +1,42 @@
+.two-column-wrapper {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Left = Policies , Right = Appointments */
+.left-column, .right-column {
+  flex: 1;
+}
+
+/* Appointment card */
+.appointment-card {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+}
+
+.appointment-item {
+  background: #f6f8ff;
+  padding: 15px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  border-left: 5px solid #4c7df3;
+}
+
+.a-status {
+  font-weight: bold;
+}
+
+.a-status.completed {
+  color: green;
+}
+
+.a-status.cancelled {
+  color: red;
+}
+
+.a-status.pending {
+  color: orange;
+}
