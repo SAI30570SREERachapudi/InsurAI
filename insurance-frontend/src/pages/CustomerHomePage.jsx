@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import "./CustomerHome.css";
+import { useTranslation } from "react-i18next";
 
 export default function CustomerHome() {
+  const { t } = useTranslation();
+
   const [user, setUser] = useState(null);
   const [stats, setStats] = useState(null);
   const [appointments, setAppointments] = useState([]);
@@ -22,10 +25,9 @@ export default function CustomerHome() {
       setStats({
         totalPolicies: p.data.length,
         activePolicies: p.data.filter((x) => x.status === "ACTIVE").length,
-        cancelledPolicies: p.data.filter((x) => x.status === "CANCELLED")
-          .length,
+        cancelledPolicies: p.data.filter((x) => x.status === "CANCELLED").length,
         nextPremium:
-          p.data.length > 0 ? p.data[0].nextPremiumDue : "No policies",
+          p.data.length > 0 ? p.data[0].nextPremiumDue : t("no_policies"),
       });
 
       setAppointments(a.data || []);
@@ -36,54 +38,60 @@ export default function CustomerHome() {
 
   return (
     <div className="home-container">
+      
       {/* ========================= HEADER ========================= */}
       <div className="home-hero">
         <h1>
-          Welcome back, <span>{user?.name}</span> 👋
+          {t("welcome_back")}, <span>{user?.name}</span> 👋
         </h1>
-        <p>Your protection journey starts here.</p>
+        <p>{t("protection_journey")}</p>
       </div>
 
       {/* ========================= QUICK STATS ========================= */}
       <div className="stats-row">
         <div className="stat-card">
           <h3>{stats?.totalPolicies || 0}</h3>
-          <p>Total Policies</p>
+          <p>{t("total_policies")}</p>
         </div>
 
         <div className="stat-card">
           <h3>{stats?.activePolicies || 0}</h3>
-          <p>Active Policies</p>
+          <p>{t("active_policies")}</p>
         </div>
 
         <div className="stat-card">
           <h3>{stats?.cancelledPolicies || 0}</h3>
-          <p>Cancelled</p>
+          <p>{t("cancelled")}</p>
         </div>
 
         <div className="stat-card highlight">
-          <h3>{stats?.nextPremium || "No Due"}</h3>
-          <p>Next Premium</p>
+          <h3>{stats?.nextPremium || t("no_due")}</h3>
+          <p>{t("next_premium")}</p>
         </div>
       </div>
 
       {/* ========================= UPCOMING APPOINTMENT ========================= */}
       <div className="section-card">
-        <h2>📅 Your Upcoming Appointment</h2>
+        <h2>📅 {t("upcoming_appointment")}</h2>
 
         {appointments.length === 0 ? (
-          <p>No appointments booked yet.</p>
+          <p>{t("no_appointments")}</p>
         ) : (
           <div className="appointment-box">
-            <h3>With Agent: {appointments[0].agent?.name}</h3>
+            <h3>
+              {t("with_agent")}: {appointments[0].agent?.name}
+            </h3>
+
             <p>
-              Date: <strong>{appointments[0].date}</strong>
+              {t("date")}: <strong>{appointments[0].date}</strong>
             </p>
+
             <p>
-              Time: <strong>{appointments[0].time}</strong>
+              {t("time")}: <strong>{appointments[0].time}</strong>
             </p>
+
             <p>
-              Reason: <strong>{appointments[0].reason}</strong>
+              {t("reason")}: <strong>{appointments[0].reason}</strong>
             </p>
           </div>
         )}
@@ -91,34 +99,35 @@ export default function CustomerHome() {
 
       {/* ========================= RECOMMENDED POLICIES ========================= */}
       <div className="section-card">
-        <h2>🔥 Recommended Policies for You</h2>
+        <h2>🔥 {t("recommended_policies")}</h2>
 
         <div className="policy-suggestions">
           <div className="policy-card">
-            <h3>Health Shield+</h3>
-            <p>High coverage with low premium</p>
+            <h3>{t("health_shield")}</h3>
+            <p>{t("health_shield_desc")}</p>
           </div>
 
           <div className="policy-card">
-            <h3>Life Secure Plan</h3>
-            <p>Best for long term protection</p>
+            <h3>{t("life_secure")}</h3>
+            <p>{t("life_secure_desc")}</p>
           </div>
 
           <div className="policy-card">
-            <h3>Vehicle Protect</h3>
-            <p>Total protection for your ride</p>
+            <h3>{t("vehicle_protect")}</h3>
+            <p>{t("vehicle_protect_desc")}</p>
           </div>
         </div>
       </div>
 
       {/* ========================= TIPS CAROUSEL ========================= */}
       <div className="tips-carousel">
-        <h2>💡 Insurance Tips</h2>
+        <h2>💡 {t("insurance_tips")}</h2>
+
         <div className="tips-slider">
-          <div className="tip">✔ Know what coverage you really need</div>
-          <div className="tip">✔ Always renew your premium on time.</div>
-          <div className="tip">✔ Keep your nominee info updated.</div>
-          <div className="tip">✔ Choose policies based on life goals.</div>
+          <div className="tip">✔ {t("tip_1")}</div>
+          <div className="tip">✔ {t("tip_2")}</div>
+          <div className="tip">✔ {t("tip_3")}</div>
+          <div className="tip">✔ {t("tip_4")}</div>
         </div>
       </div>
     </div>

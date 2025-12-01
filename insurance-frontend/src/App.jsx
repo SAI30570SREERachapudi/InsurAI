@@ -22,6 +22,7 @@ import CustomerAppointments from "./pages/appointments/CustomerAppointments";
 import AgentAppointments from "./pages/appointments/AgentAppointments";
 import VerifyReceipt from "./pages/VerifyReceipt";
 import CustomerHomePage from "./pages/CustomerHomePage";
+import "./i18n";
 export default function App() {
   return (
     <BrowserRouter>

@@ -1,0 +1,92 @@
+{
+  "home": "முகப்பு",
+  "policies": "காப்பீட்டுகள்",
+  "dashboard": "டாஷ்போர்டு",
+  "agent_panel": "ஏஜென்ட் பலகை",
+  "connect": "இணை",
+  "my_meetings": "என் சந்திப்புகள்",
+  "add_policy": "காப்பீடு சேர்க்கவும்",
+  "requests": "விண்ணப்பங்கள்",
+  "profile": "சுயவிவரம்",
+  "logout": "வெளியேறு",
+  "login": "உள்நுழை",
+  "register": "பதிவு",
+  "type": "வகை",
+  "coverage": "கவரேஜ்",
+  "view_details": "விவரங்களைப் பார்க்க",
+  "edit_policy": "கொள்கையை திருத்தவும்",
+  "add_new_policy": "புதிய கொள்கையைச் சேர்க்கவும்",
+
+  "policy_name": "கொள்கை பெயர்",
+  "enter_policy_name": "கொள்கை பெயரை உள்ளிடுங்கள்",
+
+  "description": "விளக்கம்",
+  "enter_description": "கொள்கை விளக்கத்தை உள்ளிடுங்கள்",
+
+  "premium": "ப்ரீமியம்",
+  "enter_premium": "ப்ரீமியம் தொகையை உள்ளிடுங்கள்",
+
+  "coverage_amount": "கவரேஜ் தொகை",
+  "enter_coverage_amount": "கவரேஜ் தொகையை உள்ளிடுங்கள்",
+
+  "term_years": "காலம் (ஆண்டுகள்)",
+  "enter_term_years": "ஆண்டுகளின் எண்ணிக்கையை உள்ளிடுங்கள்",
+
+  "policy_type": "கொள்கை வகை",
+  "select_policy_type": "கொள்கை வகையைத் தேர்ந்தெடுக்கவும்",
+
+  "update_policy": "கொள்கையை புதுப்பிக்கவும்",
+  "save_policy": "கொள்கையை சேமிக்கவும்",
+  "welcome_back": "மீண்டும் வருக",
+  "protection_journey": "உங்கள் பாதுகாப்புப் பயணம் இங்கிருந்தே தொடங்குகிறது.",
+
+  "total_policies": "மொத்த பாலிசிகள்",
+  "active_policies": "செயலில் உள்ள பாலிசிகள்",
+  "cancelled": "ரத்து செய்யப்பட்டது",
+  "next_premium": "அடுத்த பிரீமியம்",
+  "no_due": "கட்டணம் இல்லை",
+  "no_policies": "பாலிசிகள் இல்லை",
+
+  "upcoming_appointment": "உங்கள் வரவிருக்கும் சந்திப்பு",
+  "no_appointments": "எந்த சந்திப்பும் முன்பதிவு செய்யப்படவில்லை.",
+  "with_agent": "ஏஜென்ட் உடன்",
+  "date": "தேதி",
+  "time": "நேரம்",
+  "reason": "காரணம்",
+
+  "recommended_policies": "உங்களுக்கான பரிந்துரைக்கப்பட்ட பாலிசிகள்",
+  "health_shield": "ஹெல்த் ஷீல்ட்+",
+  "health_shield_desc": "குறைந்த பிரீமியத்தில் அதிக கவர்",
+  "life_secure": "லைஃப் ஸிக்யூர் பிளான்",
+  "life_secure_desc": "நீண்டகால பாதுகாப்புக்கு சிறந்தது",
+  "vehicle_protect": "வாகன பாதுகாப்பு",
+  "vehicle_protect_desc": "உங்கள் வாகனத்திற்கு முழு பாதுகாப்பு",
+
+  "insurance_tips": "காப்பீட்டு குறிப்புகள்",
+  "tip_1": "உங்களுக்கு உண்மையில் தேவையான கவரை தெரிந்து கொள்ளுங்கள்",
+  "tip_2": "எப்போதும் பிரீமியத்தை நேரத்தில் புதுப்பிக்கவும்.",
+  "tip_3": "உங்கள் நாமினி தகவலை புதுப்பித்து வையுங்கள்.",
+  "tip_4": "உங்கள் வாழ்க்கை இலக்குகளுக்கு ஏற்ப பாலிசி தேர்வு செய்யுங்கள்.",
+  "dashboard_title": "டாஷ்போர்டு",
+  "dashboard_image_alt": "டாஷ்போர்டு படம்",
+  "footer_brand_tagline": "நவீன, வேகமான மற்றும் சمار்ட் காப்பீட்டு தீர்வுகள்.",
+  "footer_company": "நிறுவனம்",
+  "footer_policies": "காப்பீட்டு திட்டங்கள்",
+  "footer_customer_portal": "வாடிக்கையாளர் போர்டல்",
+  "footer_agent_panel": "ஏஜென்ட் பேனல்",
+  "footer_admin_dashboard": "நிர்வாக டாஷ்போர்டு",
+
+  "footer_insurance": "காப்பீடு",
+  "footer_health_insurance": "ஆரோக்கியக் காப்பீடு",
+  "footer_life_insurance": "உயிர் காப்பீடு",
+  "footer_vehicle_insurance": "வாகனக் காப்பீடு",
+  "footer_travel_insurance": "பயணக் காப்பீடு",
+  "footer_home_insurance": "வீட்டுக் காப்பீடு",
+
+  "footer_contact": "தொடர்பு",
+  "footer_email": "மின்னஞ்சல்",
+  "footer_phone": "தொலைபேசி",
+  "footer_location": "ஹைதராபாத், தெலங்கானா",
+
+  "footer_bottom": "தொழில்நுட்பத்தின் மூலம் காப்பீட்டை எளிமைப்படுத்துகிறோம்."
+}

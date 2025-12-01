@@ -1,45 +1,46 @@
-import React from "react";
+import { useTranslation } from "react-i18next";
 import "./footer.css";
-
 export default function Footer() {
+  const { t } = useTranslation();
+  
   return (
     <footer className="gradient-footer">
       <div className="footer-container">
 
         <div className="footer-brand">
           <h2>Insur<span>AI</span></h2>
-          <p>Modern, fast and smart insurance solutions.</p>
+          <p>{t("footer_brand_tagline")}</p>
         </div>
 
         <div className="footer-links">
           <div>
-            <h4>Company</h4>
-            <a href="/policies">Policies</a>
-            <a href="/dashboard/customer">Customer Portal</a>
-            <a href="/dashboard/agent">Agent Panel</a>
-            <a href="/dashboard/admin">Admin Dashboard</a>
+            <h4>{t("footer_company")}</h4>
+            <a href="/policies">{t("footer_policies")}</a>
+            <a href="/dashboard/customer">{t("footer_customer_portal")}</a>
+            <a href="/dashboard/agent">{t("footer_agent_panel")}</a>
+            <a href="/dashboard/admin">{t("footer_admin_dashboard")}</a>
           </div>
 
           <div>
-            <h4>Insurance</h4>
-            <a>Health Insurance</a>
-            <a>Life Insurance</a>
-            <a>Vehicle Insurance</a>
-            <a>Travel Insurance</a>
-            <a>Home Insurance</a>
+            <h4>{t("footer_insurance")}</h4>
+            <a>{t("footer_health_insurance")}</a>
+            <a>{t("footer_life_insurance")}</a>
+            <a>{t("footer_vehicle_insurance")}</a>
+            <a>{t("footer_travel_insurance")}</a>
+            <a>{t("footer_home_insurance")}</a>
           </div>
 
           <div>
-            <h4>Contact</h4>
-            <a>Email: support@insurai.com</a>
-            <a>Phone: +91 98765 43210</a>
-            <a>Hyderabad, Telangana</a>
+            <h4>{t("footer_contact")}</h4>
+            <a>{t("footer_email")}: support@insurai.com</a>
+            <a>{t("footer_phone")}: +91 98765 43210</a>
+            <a>{t("footer_location")}</a>
           </div>
         </div>
       </div>
 
       <div className="footer-bottom">
-        © {new Date().getFullYear()} InsurAI — Simplifying insurance through technology.
+        © {new Date().getFullYear()} InsurAI — {t("footer_bottom")}
       </div>
     </footer>
   );

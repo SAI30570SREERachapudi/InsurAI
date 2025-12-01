@@ -1,0 +1,92 @@
+{
+  "home": "హోం",
+  "policies": "పాలసీలు",
+  "dashboard": "డాష్‌బోర్డ్",
+  "agent_panel": "ఏజెంట్ ప్యానల్",
+  "connect": "కనెక్ట్",
+  "my_meetings": "నా మీటింగ్స్",
+  "add_policy": "పాలసీ జోడించండి",
+  "requests": "అభ్యర్థనలు",
+  "profile": "ప్రొఫైల్",
+  "logout": "లాగౌట్",
+  "login": "లాగిన్",
+  "register": "రిజిస్టర్",
+  "type": "రకం",
+  "coverage": "కవరేజ్",
+  "view_details": "వివరాలు చూడండి",
+  "edit_policy": "పాలసీని సవరించండి",
+  "add_new_policy": "క్రొత్త పాలసీ జోడించండి",
+
+  "policy_name": "పాలసీ పేరు",
+  "enter_policy_name": "పాలసీ పేరును నమోదు చేయండి",
+
+  "description": "వివరణ",
+  "enter_description": "పాలసీ వివరణను నమోదు చేయండి",
+
+  "premium": "ప్రీమియం",
+  "enter_premium": "ప్రీమియం మొత్తాన్ని నమోదు చేయండి",
+
+  "coverage_amount": "కవరేజ్ మొత్తం",
+  "enter_coverage_amount": "కవరేజ్ మొత్తాన్ని నమోదు చేయండి",
+
+  "term_years": "కాలం (సంవత్సరాలు)",
+  "enter_term_years": "సంవత్సరాల సంఖ్యను నమోదు చేయండి",
+
+  "policy_type": "పాలసీ రకం",
+  "select_policy_type": "పాలసీ రకాన్ని ఎంచుకోండి",
+
+  "update_policy": "పాలసీ అప్డేట్ చేయండి",
+  "save_policy": "పాలసీ సేవ్ చేయండి",
+  "welcome_back": "మళ్లీ స్వాగతం",
+  "protection_journey": "మీ రక్షణ ప్రయాణం ఇక్కడ ప్రారంభమవుతుంది.",
+
+  "total_policies": "మొత్తం పాలసీలు",
+  "active_policies": "సక్రియ పాలసీలు",
+  "cancelled": "రద్దు చేయబడ్డవి",
+  "next_premium": "తదుపరి ప్రీమియం",
+  "no_due": "బాకీ లేదు",
+  "no_policies": "పాలసీలు లేవు",
+
+  "upcoming_appointment": "మీ రాబోయే అపాయింట్మెంట్",
+  "no_appointments": "ఏ అపాయింట్మెంట్లు బుక్ కాలేదు.",
+  "with_agent": "ఏజెంట్ తో",
+  "date": "తేదీ",
+  "time": "సమయం",
+  "reason": "కారణం",
+
+  "recommended_policies": "మీకోసం సిఫార్సు చేసిన పాలసీలు",
+  "health_shield": "హెల్త్ షీల్డ్+",
+  "health_shield_desc": "తక్కువ ప్రీమియంతో అధిక కవరేజ్",
+  "life_secure": "లైఫ్ సెక్యూర్ ప్లాన్",
+  "life_secure_desc": "దీర్ఘకాల రక్షణకు ఉత్తమం",
+  "vehicle_protect": "వాహన రక్షణ",
+  "vehicle_protect_desc": "మీ వాహనానికి పూర్తి రక్షణ",
+
+  "insurance_tips": "ఇన్సూరెన్స్ చిట్కాలు",
+  "tip_1": "మీకు నిజంగా అవసరమైన కవరేజ్‌నూ తెలుసుకోండి",
+  "tip_2": "ప్రీమియంను ఎప్పుడూ సమయానికి రీన్యూ చేయండి.",
+  "tip_3": "మీ నామినీ వివరాలను నవీకరించండి.",
+  "tip_4": "మీ జీవన లక్ష్యాలకు అనుగుణంగా పాలసీలు ఎంచుకోండి.",
+  "dashboard_title": "డాష్‌బోర్డ్",
+  "dashboard_image_alt": "డాష్‌బోర్డ్ చిత్రం",
+  "footer_brand_tagline": "ఆధునిక, వేగవంతమైన మరియు స్మార్ట్ ఇన్సూరెన్స్ పరిష్కారాలు.",
+  "footer_company": "కంపెనీ",
+  "footer_policies": "పాలీసీలు",
+  "footer_customer_portal": "కస్టమర్ పోర్టల్",
+  "footer_agent_panel": "ఏజెంట్ ప్యానల్",
+  "footer_admin_dashboard": "అడ్మిన్ డాష్‌బోర్డ్",
+
+  "footer_insurance": "భీమా",
+  "footer_health_insurance": "హెల్త్ ఇన్సూరెన్స్",
+  "footer_life_insurance": "లైఫ్ ఇన్సూరెన్స్",
+  "footer_vehicle_insurance": "వాహన భీమా",
+  "footer_travel_insurance": "ప్రయాణ భీమా",
+  "footer_home_insurance": "ఇంటి భీమా",
+
+  "footer_contact": "సంప్రదించండి",
+  "footer_email": "ఇమెయిల్",
+  "footer_phone": "ఫోన్",
+  "footer_location": "హైదరాబాద్, తెలంగాణ",
+
+  "footer_bottom": "సాంకేతికతతో ఇన్సూరెన్స్‌ను సులభతరం చేస్తున్నాం."
+}

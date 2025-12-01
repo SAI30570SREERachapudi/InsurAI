@@ -1,0 +1,71 @@
+{
+  "home": "Home",
+  "policies": "Policies",
+  "dashboard": "Dashboard",
+  "agent_panel": "Agent Panel",
+  "connect": "Connect",
+  "my_meetings": "My Meetings",
+  "add_policy": "Add Policy",
+  "requests": "Requests",
+  "profile": "Profile",
+  "logout": "Logout",
+  "login": "Login",
+  "register": "Register",
+  "type": "Type",
+  "coverage": "Coverage",
+  "view_details": "View Details",
+  "edit_policy": "Edit Policy",
+  "add_new_policy": "Add New Policy",
+
+  "policy_name": "Policy Name",
+  "enter_policy_name": "Enter policy name",
+
+  "description": "Description",
+  "enter_description": "Enter policy description",
+
+  "premium": "Premium",
+  "enter_premium": "Enter premium amount",
+
+  "coverage_amount": "Coverage Amount",
+  "enter_coverage_amount": "Enter coverage amount",
+
+  "term_years": "Term (Years)",
+  "enter_term_years": "Enter number of years",
+
+  "policy_type": "Policy Type",
+  "select_policy_type": "Select Policy Type",
+
+  "update_policy": "Update Policy",
+  "save_policy": "Save Policy",
+  "welcome_back": "Welcome back",
+  "protection_journey": "Your protection journey starts here.",
+
+  "total_policies": "Total Policies",
+  "active_policies": "Active Policies",
+  "cancelled": "Cancelled",
+  "next_premium": "Next Premium",
+  "no_due": "No Due",
+  "no_policies": "No policies",
+
+  "upcoming_appointment": "Your Upcoming Appointment",
+  "no_appointments": "No appointments booked yet.",
+  "with_agent": "With Agent",
+  "date": "Date",
+  "time": "Time",
+  "reason": "Reason",
+
+  "recommended_policies": "Recommended Policies for You",
+  "health_shield": "Health Shield+",
+  "health_shield_desc": "High coverage with low premium",
+  "life_secure": "Life Secure Plan",
+  "life_secure_desc": "Best for long term protection",
+  "vehicle_protect": "Vehicle Protect",
+  "vehicle_protect_desc": "Total protection for your ride",
+
+  "insurance_tips": "Insurance Tips",
+  "tip_1": "Know what coverage you really need",
+  "tip_2": "Always renew your premium on time.",
+  "tip_3": "Keep your nominee info updated.",
+  "tip_4": "Choose policies based on life goals."
+}
+

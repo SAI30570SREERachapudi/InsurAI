@@ -1,0 +1,92 @@
+{
+  "home": "मुख्य पृष्ठ",
+  "policies": "पॉलिसी",
+  "dashboard": "डैशबोर्ड",
+  "agent_panel": "एजेंट पैनल",
+  "connect": "कनेक्ट",
+  "my_meetings": "मेरी मीटिंग्स",
+  "add_policy": "पॉलिसी जोड़ें",
+  "requests": "अनुरोध",
+  "profile": "प्रोफ़ाइल",
+  "logout": "लॉगआउट",
+  "login": "लॉगिन",
+  "register": "रजिस्टर",
+  "type": "प्रकार",
+  "coverage": "कवरेज",
+  "view_details": "विवरण देखें",
+  "edit_policy": "पॉलिसी संपादित करें",
+  "add_new_policy": "नई पॉलिसी जोड़ें",
+
+  "policy_name": "पॉलिसी नाम",
+  "enter_policy_name": "पॉलिसी का नाम दर्ज करें",
+
+  "description": "विवरण",
+  "enter_description": "पॉलिसी विवरण दर्ज करें",
+
+  "premium": "प्रीमियम",
+  "enter_premium": "प्रीमियम राशि दर्ज करें",
+
+  "coverage_amount": "कवरेज राशि",
+  "enter_coverage_amount": "कवरेज राशि दर्ज करें",
+
+  "term_years": "अवधि (वर्ष)",
+  "enter_term_years": "वर्षों की संख्या दर्ज करें",
+
+  "policy_type": "पॉलिसी प्रकार",
+  "select_policy_type": "पॉलिसी प्रकार चुनें",
+
+  "update_policy": "पॉलिसी अपडेट करें",
+  "save_policy": "पॉलिसी सेव करें",
+  "welcome_back": "वापसी पर स्वागत है",
+  "protection_journey": "आपकी सुरक्षा यात्रा यहीं से शुरू होती है।",
+
+  "total_policies": "कुल पॉलिसी",
+  "active_policies": "सक्रिय पॉलिसी",
+  "cancelled": "रद्द",
+  "next_premium": "अगला प्रीमियम",
+  "no_due": "कोई बकाया नहीं",
+  "no_policies": "कोई पॉलिसी नहीं",
+
+  "upcoming_appointment": "आपकी आगामी अपॉइंटमेंट",
+  "no_appointments": "कोई अपॉइंटमेंट बुक नहीं है।",
+  "with_agent": "एजेंट के साथ",
+  "date": "तारीख",
+  "time": "समय",
+  "reason": "कारण",
+
+  "recommended_policies": "आपके लिए सुझाई गई पॉलिसी",
+  "health_shield": "हेल्थ शील्ड+",
+  "health_shield_desc": "कम प्रीमियम में अधिक कवरेज",
+  "life_secure": "लाइफ सिक्योर प्लान",
+  "life_secure_desc": "लंबी अवधि की सुरक्षा के लिए सर्वश्रेष्ठ",
+  "vehicle_protect": "वाहन सुरक्षा",
+  "vehicle_protect_desc": "आपके वाहन की पूरी सुरक्षा",
+
+  "insurance_tips": "बीमा सुझाव",
+  "tip_1": "अपनी वास्तविक कवरेज आवश्यकता जानें",
+  "tip_2": "हमेशा समय पर प्रीमियम रिन्यू करें।",
+  "tip_3": "अपने नामांकित व्यक्ति की जानकारी अपडेट रखें।",
+  "tip_4": "जीवन लक्ष्य के अनुसार पॉलिसी चुनें।",
+  "dashboard_title": "डैशबोर्ड",
+  "dashboard_image_alt": "डैशबोर्ड छवि",
+  "footer_brand_tagline": "आधुनिक, तेज़ और स्मार्ट बीमा समाधान।",
+  "footer_company": "कंपनी",
+  "footer_policies": "पॉलिसियाँ",
+  "footer_customer_portal": "कस्टमर पोर्टल",
+  "footer_agent_panel": "एजेंट पैनल",
+  "footer_admin_dashboard": "एडमिन डैशबोर्ड",
+
+  "footer_insurance": "बीमा",
+  "footer_health_insurance": "हेल्थ इंश्योरेंस",
+  "footer_life_insurance": "लाइफ़ इंश्योरेंस",
+  "footer_vehicle_insurance": "वाहन बीमा",
+  "footer_travel_insurance": "ट्रैवल इंश्योरेंस",
+  "footer_home_insurance": "होम इंश्योरेंस",
+
+  "footer_contact": "संपर्क करें",
+  "footer_email": "ईमेल",
+  "footer_phone": "फ़ोन",
+  "footer_location": "हैदराबाद, तेलंगाना",
+
+  "footer_bottom": "तकनीक के माध्यम से बीमा को सरल बना रहे हैं।"
+}

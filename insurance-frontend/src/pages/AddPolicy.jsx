@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import { useNavigate, useParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import "./AddPolicy.css";
 
 export default function AddPolicy() {
   const navigate = useNavigate();
-  const { id } = useParams(); // << detect edit mode
+  const { id } = useParams();
+  const { t } = useTranslation();
 
   const [policyName, setPolicyName] = useState("");
   const [description, setDescription] = useState("");
@@ -66,10 +68,10 @@ export default function AddPolicy() {
     try {
       if (isEdit) {
         await axios.put(`/policies/${id}`, policyData);
-        alert("Policy updated successfully!");
+        alert(t("update_policy") + " ✔");
       } else {
         await axios.post("/policies", policyData);
-        alert("Policy added successfully!");
+        alert(t("save_policy") + " ✔");
       }
 
       navigate("/policies");
@@ -81,57 +83,58 @@ export default function AddPolicy() {
   return (
     <div className="admin-container">
       <h2 className="admin-title">
-        {isEdit ? "Edit Policy" : "Add New Policy"}
+        {isEdit ? t("edit_policy") : t("add_new_policy")}
       </h2>
 
       <div className="admin-card glass-card">
         <form className="policy-form" onSubmit={handleSubmit}>
-          <label>Policy Name</label>
+          
+          <label>{t("policy_name")}</label>
           <input
             type="text"
             value={policyName}
             onChange={(e) => setPolicyName(e.target.value)}
-            placeholder="Enter policy name"
+            placeholder={t("enter_policy_name")}
           />
 
-          <label>Description</label>
+          <label>{t("description")}</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             rows="4"
-            placeholder="Enter policy description"
+            placeholder={t("enter_description")}
           />
 
-          <label>Premium</label>
+          <label>{t("premium")}</label>
           <input
             type="number"
             value={premium}
             onChange={(e) => setPremium(e.target.value)}
-            placeholder="Enter premium amount"
+            placeholder={t("enter_premium")}
           />
 
-          <label>Coverage Amount</label>
+          <label>{t("coverage_amount")}</label>
           <input
             type="number"
             value={coverageAmount}
             onChange={(e) => setCoverageAmount(e.target.value)}
-            placeholder="Enter coverage amount"
+            placeholder={t("enter_coverage_amount")}
           />
 
-          <label>Term (Years)</label>
+          <label>{t("term_years")}</label>
           <input
             type="number"
             value={termInYears}
             onChange={(e) => setTermInYears(e.target.value)}
-            placeholder="Enter number of years"
+            placeholder={t("enter_term_years")}
           />
 
-          <label>Policy Type</label>
+          <label>{t("policy_type")}</label>
           <select
             value={policyType}
             onChange={(e) => setPolicyType(e.target.value)}
           >
-            <option value="">Select Policy Type</option>
+            <option value="">{t("select_policy_type")}</option>
             {policyTypes.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -140,7 +143,7 @@ export default function AddPolicy() {
           </select>
 
           <button type="submit" className="approve-btn">
-            {isEdit ? "Update Policy" : "Save Policy"}
+            {isEdit ? t("update_policy") : t("save_policy")}
           </button>
         </form>
       </div>
