@@ -118,8 +118,40 @@
   "payment_info": "This is a demo payment flow. No real payment provider is used.",
   "policy": "Policy",
   "amount_to_pay": "Amount to Pay",
-  "pay": "Pay"
+  "pay": "Pay",
+  "my_profile": "My Profile",
+  "loading_profile": "Loading profile...",
+  "unable_profile": "Unable to load profile",
+
+  "name": "Name",
+  "email": "Email",
+  "phone": "Phone",
+  "address": "Address",
+  "role": "Role",
+  "not_provided": "Not Provided",
+
+  "edit_profile": "Edit Profile",
+  "change_password": "Change Password",
+
+  "full_name": "Full Name",
+  "phone_number": "Phone Number",
+  "save_changes": "Save Changes",
+  "cancel": "Cancel",
+
+  "enter_old_password": "Enter Old Password",
+  "send_otp": "Send OTP",
+  "enter_otp": "Enter OTP",
+  "enter_new_password": "Enter New Password",
+  "verify_change": "Verify & Change",
+
+  "profile_updated": "Profile updated!",
+  "update_failed": "Failed to update profile",
+  "otp_sent_email": "OTP sent to your email!",
+  "otp_failed": "Failed to send OTP",
+  "password_updated": "Password updated successfully!",
+  "otp_verification_failed": "OTP verification failed"
 }
+
 
 
 
