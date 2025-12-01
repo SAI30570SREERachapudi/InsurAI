@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "../services/axiosInstance";
 import "./Purchase.css";
+import { useTranslation } from "react-i18next";
 
 export default function PolicyBuy() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -11,10 +13,8 @@ export default function PolicyBuy() {
   const [loading, setLoading] = useState(true);
   const [step, setStep] = useState(1);
 
-  // customer info (prefill from backend)
   const [customer, setCustomer] = useState({ name: "", email: "", phone: "" });
 
-  // nominee fields
   const [nomineeName, setNomineeName] = useState("");
   const [nomineeRelation, setNomineeRelation] = useState("");
   const [nomineePhone, setNomineePhone] = useState("");
@@ -27,6 +27,7 @@ export default function PolicyBuy() {
           axios.get(`/policies/${id}`),
           axios.get("/auth/me"),
         ]);
+
         setPolicy(pRes.data);
         setCustomer({
           name: meRes.data.name,
@@ -35,18 +36,16 @@ export default function PolicyBuy() {
         });
       } catch (e) {
         console.error(e);
-        alert("Failed to load policy or user info.");
+        alert(t("load_failed"));
       } finally {
         setLoading(false);
       }
     };
     load();
-  }, [id]);
+  }, [id, t]);
 
-  // create purchase (dummy payment success)
   const submitPurchase = async () => {
     try {
-      // Build purchase DTO (server expects PolicyPurchase-like payload)
       const dto = {
         nomineeName,
         nomineeRelation,
@@ -55,103 +54,151 @@ export default function PolicyBuy() {
       };
 
       await axios.post(`/purchases/create/${id}`, dto);
-      // navigate to a success page
       navigate("/purchase/success");
     } catch (err) {
       console.error(err);
-      alert("Purchase failed. Try again.");
+      alert(t("purchase_failed"));
     }
   };
 
-  if (loading) return <div className="purchase-loading">Loading...</div>;
-  if (!policy) return <div className="purchase-error">Policy not found</div>;
+  if (loading) return <div className="purchase-loading">{t("loading")}</div>;
+  if (!policy)
+    return <div className="purchase-error">{t("policy_not_found")}</div>;
 
   return (
     <div className="purchase-wrapper">
       <div className="purchase-card">
-        <h2>Buy Policy — {policy.policyName}</h2>
+        <h2>
+          {t("buy_policy")} — {policy.policyName}
+        </h2>
 
         <div className="purchase-steps">
-          <div className={`step ${step === 1 ? "active" : ""}`}>1. Summary</div>
-          <div className={`step ${step === 2 ? "active" : ""}`}>2. Nominee</div>
-          <div className={`step ${step === 3 ? "active" : ""}`}>3. Payment</div>
+          <div className={`step ${step === 1 ? "active" : ""}`}>
+            1. {t("summary")}
+          </div>
+          <div className={`step ${step === 2 ? "active" : ""}`}>
+            2. {t("nominee")}
+          </div>
+          <div className={`step ${step === 3 ? "active" : ""}`}>
+            3. {t("payment")}
+          </div>
         </div>
 
+        {/* STEP 1 */}
         {step === 1 && (
           <div className="step-panel">
-            <h3>Policy Summary</h3>
-            <p><strong>Type:</strong> {policy.policyType}</p>
-            <p><strong>Premium:</strong> ₹{policy.premium}</p>
-            <p><strong>Coverage:</strong> ₹{policy.coverageAmount}</p>
-            <p><strong>Term:</strong> {policy.termInYears} years</p>
+            <h3>{t("policy_summary")}</h3>
+
+            <p>
+              <strong>{t("type")}:</strong> {policy.policyType}
+            </p>
+            <p>
+              <strong>{t("premium")}:</strong> ₹{policy.premium}
+            </p>
+            <p>
+              <strong>{t("coverage")}:</strong> ₹{policy.coverageAmount}
+            </p>
+            <p>
+              <strong>{t("term")}:</strong> {policy.termInYears} {t("years")}
+            </p>
+
             <p className="desc">{policy.description}</p>
 
-            <h4>Your details</h4>
-            <p>{customer.name} — {customer.email} {customer.phone && `• ${customer.phone}`}</p>
+            <h4>{t("your_details")}</h4>
+            <p>
+              {customer.name} — {customer.email}{" "}
+              {customer.phone && `• ${customer.phone}`}
+            </p>
 
             <div className="purchase-actions">
-              <button className="btn ghost" onClick={() => navigate("/policies")}>Cancel</button>
-              <button className="btn primary" onClick={() => setStep(2)}>Next</button>
-            </div>
-          </div>
-        )}
-
-        {step === 2 && (
-          <div className="step-panel">
-            <h3>Nominee Details</h3>
-
-            <label>Nominee Name</label>
-            <input value={nomineeName} onChange={(e) => setNomineeName(e.target.value)} />
-
-            <label>Relationship</label>
-            <input value={nomineeRelation} onChange={(e) => setNomineeRelation(e.target.value)} />
-
-            <label>Nominee Phone</label>
-            <input value={nomineePhone} onChange={(e) => setNomineePhone(e.target.value)} />
-
-            <label>Nominee Age</label>
-            <input type="number" value={nomineeAge} onChange={(e) => setNomineeAge(e.target.value)} />
-
-            <div className="purchase-actions">
-              <button className="btn ghost" onClick={() => setStep(1)}>Back</button>
-              <button
-                className="btn primary"
-                onClick={() => {
-                  if (!nomineeName || !nomineeRelation) {
-                    alert("Please fill nominee name and relation.");
-                    return;
-                  }
-                  setStep(3);
-                }}
-              >
-                Next → Payment
+              <button className="btn ghost" onClick={() => navigate("/policies")}>
+                {t("cancel")}
+              </button>
+              <button className="btn primary" onClick={() => setStep(2)}>
+                {t("next")}
               </button>
             </div>
           </div>
         )}
 
-        {step === 3 && (
+        {/* STEP 2 */}
+        {step === 2 && (
           <div className="step-panel">
-            <h3>Payment (Dummy)</h3>
-            <p>This is a demo payment flow. No real payment provider is used.</p>
+            <h3>{t("nominee_details")}</h3>
 
-            <div className="payment-summary">
-              <div><strong>Policy:</strong> {policy.policyName}</div>
-              <div><strong>Amount to pay:</strong> ₹{policy.premium}</div>
-            </div>
+            <label>{t("nominee_name")}</label>
+            <input
+              value={nomineeName}
+              onChange={(e) => setNomineeName(e.target.value)}
+            />
+
+            <label>{t("relationship")}</label>
+            <input
+              value={nomineeRelation}
+              onChange={(e) => setNomineeRelation(e.target.value)}
+            />
+
+            <label>{t("nominee_phone")}</label>
+            <input
+              value={nomineePhone}
+              onChange={(e) => setNomineePhone(e.target.value)}
+            />
+
+            <label>{t("nominee_age")}</label>
+            <input
+              type="number"
+              value={nomineeAge}
+              onChange={(e) => setNomineeAge(e.target.value)}
+            />
 
             <div className="purchase-actions">
-              <button className="btn ghost" onClick={() => setStep(2)}>Back</button>
+              <button className="btn ghost" onClick={() => setStep(1)}>
+                {t("back")}
+              </button>
 
-              {/* Dummy "Pay" button */}
               <button
                 className="btn primary"
                 onClick={() => {
-                  // simulate small delay then submit purchase
+                  if (!nomineeName || !nomineeRelation) {
+                    alert(t("fill_nominee_warning"));
+                    return;
+                  }
+                  setStep(3);
+                }}
+              >
+                {t("next_payment")}
+              </button>
+            </div>
+          </div>
+        )}
+
+        {/* STEP 3 */}
+        {step === 3 && (
+          <div className="step-panel">
+            <h3>{t("payment_dummy")}</h3>
+            <p>{t("payment_info")}</p>
+
+            <div className="payment-summary">
+              <div>
+                <strong>{t("policy")}:</strong> {policy.policyName}
+              </div>
+              <div>
+                <strong>{t("amount_to_pay")}:</strong> ₹{policy.premium}
+              </div>
+            </div>
+
+            <div className="purchase-actions">
+              <button className="btn ghost" onClick={() => setStep(2)}>
+                {t("back")}
+              </button>
+
+              <button
+                className="btn primary"
+                onClick={() => {
                   setTimeout(() => submitPurchase(), 500);
                 }}
               >
-                Pay ₹{policy.premium}
+                {t("pay")} ₹{policy.premium}
               </button>
             </div>
           </div>

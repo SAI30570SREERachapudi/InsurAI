@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import "./Policies.css";
+import { useTranslation } from "react-i18next";
 
 export default function Policies() {
+  const { t } = useTranslation();
+
   const [policies, setPolicies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
@@ -25,104 +28,102 @@ export default function Policies() {
     fetch();
   }, []);
 
-  // Group policies by policyType
   const groupedPolicies = policies.reduce((group, policy) => {
-    if (!group[policy.policyType]) {
-      group[policy.policyType] = [];
-    }
+    if (!group[policy.policyType]) group[policy.policyType] = [];
     group[policy.policyType].push(policy);
     return group;
   }, {});
 
   async function deletePolicy(id) {
-    if (!window.confirm("Are you sure you want to delete this policy?")) return;
+    if (!window.confirm(t("confirm_delete"))) return;
 
     try {
       await axios.delete(`/policies/${id}`);
-      alert("Policy deleted.");
+      alert(t("policy_deleted"));
       window.location.reload();
     } catch (err) {
-      alert("Delete failed!");
+      alert(t("delete_failed"));
     }
   }
 
   return (
     <div className="policy-container">
-      <h2 className="policy-title">Available Policies</h2>
+      <h2 className="policy-title">{t("available_policies")}</h2>
 
       {loading ? (
-        <p>Loading...</p>
+        <p>{t("loading")}</p>
       ) : (
         Object.keys(groupedPolicies).map((type) => (
           <div key={type} className="policy-section">
-            <h3 className="policy-group-title">{type} Policies</h3>
+            <h3 className="policy-group-title">
+              {type} {t("policies")}
+            </h3>
 
             <div className="policy-grid">
               {groupedPolicies[type].map((p) => (
                 <div key={p.id} className="policy-card-ultimate">
 
-  {/* Admin Buttons */}
-  {role === "ROLE_ADMIN" && (
-    <div className="admin-actions">
-      <span
-        className="edit-btn"
-        onClick={() => navigate(`/admin/policy/edit/${p.id}`)}
-      >
-        ✏️
-      </span>
+                  {/* ADMIN BUTTONS */}
+                  {role === "ROLE_ADMIN" && (
+                    <div className="admin-actions">
+                      <span
+                        className="edit-btn"
+                        onClick={() => navigate(`/admin/policy/edit/${p.id}`)}
+                      >
+                        ✏️
+                      </span>
 
-      <span
-        className="delete-btn"
-        onClick={() => deletePolicy(p.id)}
-      >
-        🗑️
-      </span>
-    </div>
-  )}
+                      <span
+                        className="delete-btn"
+                        onClick={() => deletePolicy(p.id)}
+                      >
+                        🗑️
+                      </span>
+                    </div>
+                  )}
 
-  {/* Customer Buy Now Button */}
-  {role === "ROLE_CUSTOMER" && (
-    <div className="customer-actions">
-      <button
-        className="buy-btn"
-        onClick={() => navigate(`/policies/buy/${p.id}`)}
-      >
-        Buy Now
-      </button>
-    </div>
-  )}
+                  {/* CUSTOMER BUY BUTTON */}
+                  {role === "ROLE_CUSTOMER" && (
+                    <div className="customer-actions">
+                      <button
+                        className="buy-btn"
+                        onClick={() => navigate(`/policies/buy/${p.id}`)}
+                      >
+                        {t("buy_now")}
+                      </button>
+                    </div>
+                  )}
 
-  {/* Card content */}
-  <div
-    className="policy-card-content"
-    onClick={() => setSelectedPolicy(p)}
-  >
-    <div className="pcard-icon">📄</div>
-    <h3>{p.policyName}</h3>
-  </div>
-
-</div>
-
+                  {/* CARD CONTENT */}
+                  <div
+                    className="policy-card-content"
+                    onClick={() => setSelectedPolicy(p)}
+                  >
+                    <div className="pcard-icon">📄</div>
+                    <h3>{p.policyName}</h3>
+                  </div>
+                </div>
               ))}
             </div>
           </div>
         ))
       )}
 
-      {/* MODAL POPUP */}
+      {/* MODAL */}
       {selectedPolicy && (
         <div className="modal-overlay" onClick={() => setSelectedPolicy(null)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <h2>{selectedPolicy.policyName}</h2>
 
-            <p><strong>Type:</strong> {selectedPolicy.policyType}</p>
-            <p><strong>Premium:</strong> ₹{selectedPolicy.premium}</p>
-            <p><strong>Coverage:</strong> ₹{selectedPolicy.coverageAmount}</p>
-            <p><strong>Years:</strong> {selectedPolicy.termInYears}</p>
+            <p><strong>{t("type")}:</strong> {selectedPolicy.policyType}</p>
+            <p><strong>{t("premium")}:</strong> ₹{selectedPolicy.premium}</p>
+            <p><strong>{t("coverage")}:</strong> ₹{selectedPolicy.coverageAmount}</p>
+            <p><strong>{t("years")}:</strong> {selectedPolicy.termInYears}</p>
+
             <p className="modal-description">{selectedPolicy.description}</p>
 
             <button className="close-btn" onClick={() => setSelectedPolicy(null)}>
-              Close
+              {t("close")}
             </button>
           </div>
         </div>

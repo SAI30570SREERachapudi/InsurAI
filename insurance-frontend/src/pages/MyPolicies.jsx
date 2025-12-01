@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import "./Purchase.css";
-import "./AppointmentsSide.css"; // ⭐ NEW CSS FILE
+import "./AppointmentsSide.css";
+import { useTranslation } from "react-i18next";
 
 export default function MyPolicies() {
+  const { t } = useTranslation();
+
   const [purchases, setPurchases] = useState([]);
   const [appointments, setAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,7 +22,7 @@ export default function MyPolicies() {
       setPurchases(res.data || []);
     } catch (e) {
       console.error(e);
-      alert("Failed to load purchases.");
+      alert(t("failed_purchases"));
     } finally {
       setLoading(false);
     }
@@ -35,31 +38,31 @@ export default function MyPolicies() {
   }
 
   async function cancelSubscription(id) {
-    if (!window.confirm("Are you sure you want to cancel this policy?")) return;
+    if (!window.confirm(t("cancel_confirm"))) return;
 
     try {
       await axios.put(`/purchases/cancel/${id}`);
-      alert("Policy cancelled.");
+      alert(t("policy_cancelled"));
 
       setPurchases((prev) =>
         prev.map((p) => (p.id === id ? { ...p, status: "CANCELLED" } : p))
       );
     } catch (e) {
-      alert("Cancellation failed." + e.message);
+      alert("Cancellation failed.");
     }
   }
 
-  if (loading) return <div className="purchase-loading">Loading...</div>;
+  if (loading) return <div className="purchase-loading">{t("loading")}</div>;
 
   return (
     <div className="two-column-wrapper">
-      {/* LEFT COLUMN – Purchased Policies */}
+      {/* LEFT COLUMN */}
       <div className="left-column">
         <div className="purchase-card wide">
-          <h2>My Purchased Policies</h2>
+          <h2>{t("mypolicies_title")}</h2>
 
           {purchases.length === 0 ? (
-            <p>You have not purchased any policy yet.</p>
+            <p>{t("mypolicies_empty")}</p>
           ) : (
             <div className="purchase-list">
               {purchases.map((p) => (
@@ -85,7 +88,6 @@ export default function MyPolicies() {
                     </div>
                   </div>
 
-                  {/* Buttons */}
                   <div className="purchase-actions">
                     <button
                       className="receipt-btn"
@@ -95,7 +97,7 @@ export default function MyPolicies() {
                         )
                       }
                     >
-                      📄 Receipt
+                      📄 {t("receipt")}
                     </button>
 
                     {p.status !== "CANCELLED" && (
@@ -103,7 +105,7 @@ export default function MyPolicies() {
                         className="cancel-btn"
                         onClick={() => cancelSubscription(p.id)}
                       >
-                        ❌ Cancel
+                        ❌ {t("cancel")}
                       </button>
                     )}
                   </div>
@@ -114,25 +116,25 @@ export default function MyPolicies() {
         </div>
       </div>
 
-      {/* RIGHT COLUMN – Appointments */}
+      {/* RIGHT COLUMN */}
       <div className="right-column">
         <div className="appointment-card">
-          <h2>My Appointments</h2>
+          <h2>{t("appointments_title")}</h2>
 
           {appointments.length === 0 ? (
-            <p>No appointments booked yet.</p>
+            <p>{t("appointments_empty")}</p>
           ) : (
             <div className="appointment-list">
               {appointments.map((a) => (
                 <div key={a.id} className="appointment-item">
                   <div>
-                    <strong>Agent:</strong> {a.agent?.name}
+                    <strong>{t("agent")}:</strong> {a.agent?.name}
                   </div>
                   <div>
-                    <strong>Date:</strong> {a.date}
+                    <strong>{t("date")}:</strong> {a.date}
                   </div>
                   <div>
-                    <strong>Status:</strong>{" "}
+                    <strong>{t("status")}:</strong>{" "}
                     <span className={`a-status ${a.status.toLowerCase()}`}>
                       {a.status}
                     </span>
