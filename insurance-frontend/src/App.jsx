@@ -23,6 +23,8 @@ import AgentAppointments from "./pages/appointments/AgentAppointments";
 import VerifyReceipt from "./pages/VerifyReceipt";
 import CustomerHomePage from "./pages/CustomerHomePage";
 import "./i18n";
+import "./darkmode.css";
+
 export default function App() {
   return (
     <BrowserRouter>

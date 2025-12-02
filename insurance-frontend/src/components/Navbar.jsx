@@ -113,8 +113,22 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "../services/axiosInstance";
 import "./navbar.css";
 import { useTranslation } from "react-i18next";
-
+import { useEffect } from "react";
+import "../darkmode.css";
 export default function Navbar() {
+  // DARK MODE
+  // THEME HANDLING
+  const [theme, setTheme] = React.useState(
+    localStorage.getItem("theme") || "light"
+  );
+
+  useEffect(() => {
+    document.body.className = ""; // remove old classes
+    document.body.classList.add(`theme-${theme}`);
+
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
 
@@ -150,9 +164,12 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-container">
-
         {/* LOGO */}
-        <div className="navbar-logo" onClick={goHome} style={{ cursor: "pointer" }}>
+        <div
+          className="navbar-logo"
+          onClick={goHome}
+          style={{ cursor: "pointer" }}
+        >
           Insur<span>AI</span>
         </div>
 
@@ -160,41 +177,72 @@ export default function Navbar() {
         <div className="navbar-links">
           {loggedIn ? (
             <>
-              <span onClick={goHome} className="nav-item">{t("home")}</span>
+              <span onClick={goHome} className="nav-item">
+                {t("home")}
+              </span>
 
-              <Link to="/policies" className="nav-item">{t("policies")}</Link>
+              <Link to="/policies" className="nav-item">
+                {t("policies")}
+              </Link>
 
               {role === "ROLE_CUSTOMER" && (
-                <Link to="/dashboard/customer" className="nav-item">{t("dashboard")}</Link>
+                <Link to="/dashboard/customer" className="nav-item">
+                  {t("dashboard")}
+                </Link>
               )}
 
               {role === "ROLE_AGENT" && (
-                <Link to="/dashboard/agent" className="nav-item">{t("agent_panel")}</Link>
+                <Link to="/dashboard/agent" className="nav-item">
+                  {t("agent_panel")}
+                </Link>
               )}
 
               {role === "ROLE_CUSTOMER" && (
-                <Link to="/appointments/book" className="nav-item">{t("connect")}</Link>
+                <Link to="/appointments/book" className="nav-item">
+                  {t("connect")}
+                </Link>
               )}
 
               {role === "ROLE_AGENT" && (
-                <Link to="/appointments/agent" className="nav-item">{t("my_meetings")}</Link>
+                <Link to="/appointments/agent" className="nav-item">
+                  {t("my_meetings")}
+                </Link>
               )}
 
               {role === "ROLE_ADMIN" && (
                 <>
-                  <Link to="/admin/policy/add" className="nav-item">{t("add_policy")}</Link>
-                  <Link to="/admin/requests" className="nav-item">{t("requests")}</Link>
+                  <Link to="/admin/policy/add" className="nav-item">
+                    {t("add_policy")}
+                  </Link>
+                  <Link to="/admin/requests" className="nav-item">
+                    {t("requests")}
+                  </Link>
                 </>
               )}
 
               {role !== "ROLE_ADMIN" && (
-                <Link to="/profile" className="nav-item">{t("profile")}</Link>
+                <Link to="/profile" className="nav-item">
+                  {t("profile")}
+                </Link>
               )}
 
               {/* LOGOUT */}
               <span onClick={logout} className="nav-item logout-link">
                 {t("logout")}
               </span>
+              {/* 🌗 Animated Theme Toggle */}
+              <div className="theme-toggle-wrapper">
+                <label className="theme-switch">
+                  <input
+                    type="checkbox"
+                    checked={theme !== "light"}
+                    onChange={() =>
+                      setTheme(theme === "light" ? "dark" : "light")
+                    }
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </div>
 
               {/* 🌐 Language Selector */}
               <select
@@ -207,12 +255,15 @@ export default function Navbar() {
                 <option value="te">తెలుగు</option>
                 <option value="ta">தமிழ்</option>
               </select>
-
             </>
           ) : (
             <>
-              <Link to="/login" className="nav-item">{t("login")}</Link>
-              <Link to="/register" className="register-btn">{t("register")}</Link>
+              <Link to="/login" className="nav-item">
+                {t("login")}
+              </Link>
+              <Link to="/register" className="register-btn">
+                {t("register")}
+              </Link>
             </>
           )}
         </div>
