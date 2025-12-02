@@ -22,9 +22,10 @@
   background: rgba(255, 255, 255, 0.9);
   border-radius: 18px;
   padding: 25px;
+
   margin-bottom: 35px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
   backdrop-filter: blur(6px);
 }
 
@@ -45,7 +46,7 @@
   background: white;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
 }
 
 .stylish-table thead {
@@ -53,7 +54,7 @@
   color: white;
 }
 
-.stylish-table th, 
+.stylish-table th,
 .stylish-table td {
   padding: 14px 12px;
   text-align: left;
@@ -96,7 +97,7 @@
 }
 
 /* Buttons */
-.approve-btn, 
+.approve-btn,
 .reject-btn {
   padding: 8px 16px;
   border-radius: 8px;

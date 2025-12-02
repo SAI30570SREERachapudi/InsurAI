@@ -190,13 +190,6 @@ export default function Navbar() {
                   {t("dashboard")}
                 </Link>
               )}
-
-              {role === "ROLE_AGENT" && (
-                <Link to="/dashboard/agent" className="nav-item">
-                  {t("agent_panel")}
-                </Link>
-              )}
-
               {role === "ROLE_CUSTOMER" && (
                 <Link to="/appointments/book" className="nav-item">
                   {t("connect")}
