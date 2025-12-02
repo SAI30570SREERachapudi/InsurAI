@@ -1,9 +1,11 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "../services/axiosInstance";
 import "./Profile.css";
+import { useTranslation } from "react-i18next";
 
 export default function Profile() {
+  const { t } = useTranslation();
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +29,6 @@ export default function Profile() {
       const res = await axios.get("/auth/me");
       setUser(res.data);
 
-      // Pre-fill edit fields
       setName(res.data.name);
       setPhone(res.data.phone || "");
       setAddress(res.data.address || "");
@@ -46,11 +47,11 @@ export default function Profile() {
   const updateProfile = async () => {
     try {
       await axios.put("/auth/update", { name, phone, address });
-      alert("Profile updated!");
+      alert(t("edit_profile_save_success"));
       setEditOpen(false);
       loadProfile();
     } catch (e) {
-      alert("Failed to update profile"+e.message);
+      alert(t("edit_profile_save_failed"));
     }
   };
 
@@ -58,121 +59,115 @@ export default function Profile() {
   const requestOtp = async () => {
     try {
       await axios.post("/auth/password/request-otp", { oldPassword });
-      alert("OTP sent to your email!");
+      alert(t("otp_sent_message"));
       setOtpSent(true);
     } catch (e) {
-      alert(e.response?.data?.message || "Failed to send OTP");
+      alert(t("otp_failed_message"));
     }
   };
 
   const verifyOtp = async () => {
     try {
       await axios.post("/auth/password/verify", { otp, newPassword });
-      alert("Password updated successfully!");
+      alert(t("password_change_success"));
       setPassOpen(false);
     } catch (e) {
-      alert("OTP Verification failed"+e.message);
+      alert(t("password_change_failed"));
     }
   };
 
-  if (loading) return <p className="profile-loading">Loading profile...</p>;
-  if (!user) return <p className="profile-error">Unable to load profile</p>;
+  if (loading) return <p className="profile-loading">{t("profile_loading")}</p>;
+  if (!user) return <p className="profile-error">{t("profile_error")}</p>;
 
   return (
     <div className="profile-wrapper">
-      <h2 className="profile-title">My Profile</h2>
+      <h2 className="profile-title">{t("profile_title")}</h2>
 
       <div className="profile-card">
         <div className="profile-row">
-          <span className="profile-label">Name</span>
+          <span className="profile-label">{t("profile_name")}</span>
           <span className="profile-value">{user.name}</span>
         </div>
 
         <div className="profile-row">
-          <span className="profile-label">Email</span>
+          <span className="profile-label">{t("profile_email")}</span>
           <span className="profile-value">{user.email}</span>
         </div>
 
         <div className="profile-row">
-          <span className="profile-label">Phone</span>
-          <span className="profile-value">{user.phone || "Not Provided"}</span>
-        </div>
-
-        <div className="profile-row">
-          <span className="profile-label">Address</span>
+          <span className="profile-label">{t("profile_phone")}</span>
           <span className="profile-value">
-            {user.address || "Not Provided"}
+            {user.phone || t("profile_not_provided")}
           </span>
         </div>
 
         <div className="profile-row">
-          <span className="profile-label">Role</span>
+          <span className="profile-label">{t("profile_address")}</span>
+          <span className="profile-value">
+            {user.address || t("profile_not_provided")}
+          </span>
+        </div>
+
+        <div className="profile-row">
+          <span className="profile-label">{t("profile_role")}</span>
           <span className="profile-role">{user.role.replace("ROLE_", "")}</span>
         </div>
       </div>
 
       {/* ACTION BUTTONS */}
       <div className="profile-actions">
-        <button
-          className="profile-btn edit-btn"
-          onClick={() => setEditOpen(true)}
-        >
-          ✏️ Edit Profile
+        <button className="profile-btn edit-btn" onClick={() => setEditOpen(true)}>
+          {t("profile_edit_btn")}
         </button>
 
-        <button
-          className="profile-btn password-btn"
-          onClick={() => setPassOpen(true)}
-        >
-          🔒 Change Password
+        <button className="profile-btn password-btn" onClick={() => setPassOpen(true)}>
+          {t("profile_password_btn")}
         </button>
       </div>
 
-      {/* ------------------ EDIT PROFILE POPUP ------------------ */}
+      {/* EDIT PROFILE POPUP */}
       {editOpen && (
         <div className="modal-overlay" onClick={() => setEditOpen(false)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <h3>Edit Profile</h3>
+            <h3>{t("edit_profile_title")}</h3>
 
             <input
               className="modal-input"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Full Name"
+              placeholder={t("edit_profile_name_placeholder")}
             />
 
             <input
               className="modal-input"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone Number"
+              placeholder={t("edit_profile_phone_placeholder")}
             />
 
             <input
               className="modal-input"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
-              placeholder="Address"
+              placeholder={t("edit_profile_address_placeholder")}
             />
 
             <button className="modal-save-btn" onClick={updateProfile}>
-              Save Changes
+              {t("edit_profile_save")}
             </button>
-            <button
-              className="modal-close-btn"
-              onClick={() => setEditOpen(false)}
-            >
-              Cancel
+
+            <button className="modal-close-btn" onClick={() => setEditOpen(false)}>
+              {t("edit_profile_cancel")}
             </button>
           </div>
         </div>
       )}
 
-      {/* ------------------ CHANGE PASSWORD POPUP ------------------ */}
+      {/* CHANGE PASSWORD POPUP */}
       {passOpen && (
         <div className="modal-overlay" onClick={() => setPassOpen(false)}>
           <div className="modal-box" onClick={(e) => e.stopPropagation()}>
-            <h3>Change Password</h3>
+            <h3>{t("password_change_title")}</h3>
 
             {!otpSent ? (
               <>
@@ -181,11 +176,11 @@ export default function Profile() {
                   className="modal-input"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
-                  placeholder="Enter Old Password"
+                  placeholder={t("password_old_placeholder")}
                 />
 
                 <button className="modal-save-btn" onClick={requestOtp}>
-                  Send OTP
+                  {t("password_send_otp")}
                 </button>
               </>
             ) : (
@@ -194,7 +189,7 @@ export default function Profile() {
                   className="modal-input"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
-                  placeholder="Enter OTP"
+                  placeholder={t("password_enter_otp")}
                 />
 
                 <input
@@ -202,20 +197,17 @@ export default function Profile() {
                   className="modal-input"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
-                  placeholder="Enter New Password"
+                  placeholder={t("password_new_placeholder")}
                 />
 
                 <button className="modal-save-btn" onClick={verifyOtp}>
-                  Verify & Change
+                  {t("password_verify_change")}
                 </button>
               </>
             )}
 
-            <button
-              className="modal-close-btn"
-              onClick={() => setPassOpen(false)}
-            >
-              Cancel
+            <button className="modal-close-btn" onClick={() => setPassOpen(false)}>
+              {t("password_cancel")}
             </button>
           </div>
         </div>

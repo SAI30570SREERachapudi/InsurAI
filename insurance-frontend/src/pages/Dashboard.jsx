@@ -6,8 +6,7 @@ export default function Dashboard() {
 
   return (
     <div className="container" style={{ paddingTop: 20 }}>
-      <h1 style={{ marginBottom: 20 }}>{t("dashboard_title")}</h1>
-
+      
       <div className="card" style={{ overflow: "hidden" }}>
         <img
           src="/images/homepages.png"

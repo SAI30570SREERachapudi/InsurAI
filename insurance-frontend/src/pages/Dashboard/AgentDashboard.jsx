@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "../../services/axiosInstance";
 import "./AgentDashboard.css";
+import { useTranslation } from "react-i18next";
 
 export default function AgentDashboard() {
+  const { t } = useTranslation();
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,13 +18,13 @@ export default function AgentDashboard() {
       setStats(res.data);
     } catch (err) {
       console.error("Error loading stats:", err);
-      alert("Failed to load dashboard stats.");
+      alert(t("failed_to_load_stats"));
     } finally {
       setLoading(false);
     }
   }
 
-  if (loading) return <div className="dashboard-loading">Loading...</div>;
+  if (loading) return <div className="dashboard-loading">{t("loading")}...</div>;
 
   const { metrics, weeklyChart, typeChart } = stats;
 
@@ -30,39 +32,39 @@ export default function AgentDashboard() {
     <div className="agent-dashboard">
       {/* HEADER */}
       <div className="header-card">
-        <h1>👋 Welcome Back, Agent</h1>
-        <p>Your performance insights at a glance</p>
+        <h1>👋 {t("welcome_back_agent")}</h1>
+        <p>{t("performance_insights")}</p>
       </div>
 
-      {/* METRICS CARDS */}
+      {/* METRICS */}
       <div className="metric-grid">
         <div className="metric-card glow total">
           <h2>{metrics.total}</h2>
-          <p>Total Appointments</p>
+          <p>{t("total_appointments")}</p>
         </div>
 
         <div className="metric-card glow completed">
           <h2>{metrics.completed}</h2>
-          <p>Completed</p>
+          <p>{t("completed")}</p>
         </div>
 
         <div className="metric-card glow pending">
           <h2>{metrics.pending}</h2>
-          <p>Pending</p>
+          <p>{t("pending")}</p>
         </div>
 
         <div className="metric-card glow cancelled">
           <h2>{metrics.cancelled}</h2>
-          <p>Cancelled</p>
+          <p>{t("cancelled")}</p>
         </div>
       </div>
 
-      {/* CHARTS SECTION */}
+      {/* CHARTS */}
       <div className="charts-row">
-        
+
         {/* Weekly Chart */}
         <div className="chart-card">
-          <h3>📅 Weekly Activity</h3>
+          <h3>📅 {t("weekly_activity")}</h3>
           <div className="bar-chart">
             {weeklyChart.map((day, i) => (
               <div className="bar-item" key={i}>
@@ -79,14 +81,18 @@ export default function AgentDashboard() {
           </div>
         </div>
 
-        {/* Type Distribution */}
+        {/* Type chart */}
         <div className="chart-card">
-          <h3>📊 Appointment Types</h3>
+          <h3>📊 {t("appointment_types")}</h3>
           <div className="type-list">
-            {typeChart.map((t, i) => (
-              <div className="type-item fade-in" style={{ animationDelay: `${i * 0.1}s` }} key={i}>
-                <span>{t.type}</span>
-                <span className="type-count">{t.value}</span>
+            {typeChart.map((tObj, i) => (
+              <div
+                className="type-item fade-in"
+                style={{ animationDelay: `${i * 0.1}s` }}
+                key={i}
+              >
+                <span>{tObj.type}</span>
+                <span className="type-count">{tObj.value}</span>
               </div>
             ))}
           </div>

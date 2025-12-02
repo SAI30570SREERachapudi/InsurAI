@@ -1,15 +1,20 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Unauthorized() {
   const nav = useNavigate();
+  const { t } = useTranslation();
+
   const role = localStorage.getItem("role");
+
   const goBack = () => {
     if (role === "ROLE_ADMIN") nav("/dashboard/admin");
     else if (role === "ROLE_AGENT") nav("/dashboard/agent");
     else if (role === "ROLE_CUSTOMER") nav("/dashboard/customer");
     else nav("/login");
   };
+
   return (
     <div
       style={{
@@ -20,8 +25,9 @@ export default function Unauthorized() {
         justifyContent: "center",
       }}
     >
-      <h1>🚫 Unauthorized</h1>
-      <p>You don't have permission to access this page.</p>
+      <h1>🚫 {t("unauthorized_title")}</h1>
+      <p>{t("unauthorized_message")}</p>
+
       <button
         onClick={goBack}
         style={{
@@ -32,7 +38,7 @@ export default function Unauthorized() {
           borderRadius: 6,
         }}
       >
-        Go Back
+        {t("go_back")}
       </button>
     </div>
   );
